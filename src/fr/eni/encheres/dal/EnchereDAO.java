@@ -11,4 +11,8 @@ public interface EnchereDAO {
 	Enchere findById(int no_enchere);
 	
 	List<Enchere> findAll();
+	
+	void delete(Enchere enchere);
+	
+	void update(Enchere enchere);
 }

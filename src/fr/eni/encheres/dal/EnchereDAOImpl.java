@@ -19,6 +19,10 @@ public class EnchereDAOImpl implements EnchereDAO{
 		
 	private final String FIND_ALL = "select no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur FROM ENCHERES";
 	
+	private final String DELETE = "DELETE FROM ENCHERES WHERE no_enchere=?";
+	
+	private final String UPDATE = "UPDATE ENCHERES set date_enchere = ?, montant_enchere = ?, no_article = ?, no_utilisateur = ? WHERE no_enchere = ?";
+	
 	@Override
 	public void add(Enchere enchere) {
 		
@@ -90,6 +94,43 @@ public class EnchereDAOImpl implements EnchereDAO{
 			e.printStackTrace();
 		}		
 		return listeEnchere;
+	}
+
+	@Override
+	public void delete(Enchere enchere) {
+		
+		try(Connection connection = ConnectionProvider.getConnection()) {
+			
+			PreparedStatement ps = connection.prepareStatement(UPDATE);
+			
+			ps.setDate(1, (Date) enchere.getDate_enchere());
+			ps.setInt(1, enchere.getMontant_enchere());
+			ps.setInt(3, enchere.getNo_article());
+			ps.setInt(4, enchere.getNo_utilisateur());
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void update(Enchere enchere) {
+
+		try(Connection connection = ConnectionProvider.getConnection()) {
+			
+			PreparedStatement ps = connection.prepareStatement(DELETE);
+						
+			ps.setInt(1, enchere.getNo_enchere());
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

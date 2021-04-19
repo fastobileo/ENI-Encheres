@@ -19,6 +19,10 @@ public class ArticleDAOImpl implements ArticleDAO{
 		
 	private final String FIND_ALL = "select no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, no_retrait";
 	
+	private final String DELETE = "DELETE FROM ARTICLES_VENDUS WHERE no_article=?";
+	
+	private final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article = ?, description = ?, date_debut_encheres = ?, date_fin_encheres = ?, prix_initial = ?, prix_vente = ?, no_utilisateur = ?, no_categorie = ?, no_retrait = ? WHERE no_article = ?";
+	
 	@Override
 	public void add(Article article) {
 		
@@ -102,6 +106,46 @@ public class ArticleDAOImpl implements ArticleDAO{
 			e.printStackTrace();
 		}		
 		return listeArticles;
+	}
+
+	@Override
+	public void delete(Article article) {
+		
+		try(Connection connection = ConnectionProvider.getConnection()) {
+			
+			PreparedStatement ps = connection.prepareStatement(UPDATE);
+			
+			ps.setString(1, article.getNom_article());
+			ps.setString(2, article.getDescription());
+			ps.setDate(3, (Date) article.getDate_debut_encheres());
+			ps.setDate(4, (Date) article.getDate_fin_encheres());
+			ps.setInt(5, article.getPrix_initial());
+			ps.setInt(6, article.getPrix_vente());
+			ps.setInt(7, article.getNo_utilisateur());
+			ps.setInt(8, article.getNo_categorie());
+			ps.setInt(9, article.getNo_retrait());	
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+	}
+
+	@Override
+	public void update(Article article) {		
+
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			
+			PreparedStatement ps = connection.prepareStatement(DELETE);
+			
+			ps.setInt(1, article.getNo_article());
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

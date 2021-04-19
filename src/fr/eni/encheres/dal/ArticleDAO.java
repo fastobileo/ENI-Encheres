@@ -11,5 +11,9 @@ void add (Article article);
 	Article findById(int no_article);
 	
 	List<Article> findAll();
+	
+	void delete(Article article);
+	
+	void update(Article article);
 
 }

@@ -11,4 +11,8 @@ public interface UtilisateurDAO{
 	Utilisateur findById(int id);
 	
 	List<Utilisateur> findAll();	
+	
+	void update(Utilisateur utilisateur);
+	
+	void delete(Utilisateur utilisateur);
 }

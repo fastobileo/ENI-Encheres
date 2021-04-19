@@ -18,6 +18,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	
 	private final String FIND_ALL = "select id, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS";
 	
+	private final String DELETE = "DELETE FROM UTILISATEURS WHERE id=?";
+	
+	private final String UPDATE = "UPDATE UTILISATEURS set pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ? WHERE id = ?";
+	
 	@Override
 	public void add(Utilisateur utilisateur) {
 		
@@ -110,5 +114,47 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			e.printStackTrace();
 		}		
 		return listeUtilisateur;
+	}
+
+	@Override
+	public void update(Utilisateur utilisateur) {		
+		
+		try(Connection connection = ConnectionProvider.getConnection()) {
+			
+			PreparedStatement ps = connection.prepareStatement(UPDATE);
+			
+			ps.setString(1, utilisateur.getPseudo());
+			ps.setString(2, utilisateur.getNom());
+			ps.setString(3, utilisateur.getPrenom());
+			ps.setString(4, utilisateur.getEmail());
+			ps.setString(5, utilisateur.getTelephone());
+			ps.setString(6, utilisateur.getRue());
+			ps.setString(7, utilisateur.getCode_postal());
+			ps.setString(8, utilisateur.getVille());
+			ps.setString(9, utilisateur.getMot_de_passe());
+			ps.setInt(10, utilisateur.getCredit());
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+	}
+
+	@Override
+	public void delete(Utilisateur utilisateur) {
+		
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			
+			PreparedStatement ps = connection.prepareStatement(DELETE);
+			
+			ps.setInt(1, utilisateur.getId());
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
