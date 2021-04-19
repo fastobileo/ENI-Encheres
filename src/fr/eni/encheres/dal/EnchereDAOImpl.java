@@ -13,10 +13,10 @@ import fr.eni.encheres.bo.Enchere;
 
 public class EnchereDAOImpl implements EnchereDAO{
 
-private final String FIND_BY_ID = "select no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur FROM ENCHERES where id = ?";
+	private final String FIND_BY_ID = "select no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur FROM ENCHERES where id = ?";
 	
 	private final String INSERT = "insert into ENCHERES(date_enchere, montant_enchere, no_article, no_utilisateur) values (?,?,?,?)";
-	
+		
 	private final String FIND_ALL = "select no_enchere, date_enchere, montant_enchere, no_article, no_utilisateur FROM ENCHERES";
 	
 	@Override

@@ -15,12 +15,11 @@ public class Article {
 	private int no_categorie;
 	private int no_retrait;
 	private Categorie categorie;
-	private boolean estVendu;
 	private Date date_debut_encheres;
 	private Date date_fin_encheres;
 	
 	public Article(int no_article, String nom_article, String description, int prix_initial, int prix_vente,
-			int no_utilisateur, int no_categorie, int no_retrait, Categorie categorie, boolean estVendu,
+			int no_utilisateur, int no_categorie, int no_retrait, Categorie categorie,
 			Date date_debut_encheres, Date date_fin_encheres) {
 		super();
 		this.no_article = no_article;
@@ -32,9 +31,12 @@ public class Article {
 		this.no_categorie = no_categorie;
 		this.no_retrait = no_retrait;
 		this.categorie = categorie;
-		this.estVendu = estVendu;
 		this.date_debut_encheres = date_debut_encheres;
 		this.date_fin_encheres = date_fin_encheres;
+	}
+	
+	public Article() {
+		
 	}
 
 	public int getNo_article() {
@@ -109,14 +111,6 @@ public class Article {
 		this.categorie = categorie;
 	}
 
-	public boolean isEstVendu() {
-		return estVendu;
-	}
-
-	public void setEstVendu(boolean estVendu) {
-		this.estVendu = estVendu;
-	}
-
 	public Date getDate_debut_encheres() {
 		return date_debut_encheres;
 	}
@@ -138,7 +132,6 @@ public class Article {
 		return "Article [no_article=" + no_article + ", nom_article=" + nom_article + ", description=" + description
 				+ ", prix_initial=" + prix_initial + ", prix_vente=" + prix_vente + ", no_utilisateur=" + no_utilisateur
 				+ ", no_categorie=" + no_categorie + ", no_retrait=" + no_retrait + ", categorie=" + categorie
-				+ ", estVendu=" + estVendu + ", date_debut_encheres=" + date_debut_encheres + ", date_fin_encheres="
-				+ date_fin_encheres + "]";
-	}	
+				+ ", date_debut_encheres=" + date_debut_encheres + ", date_fin_encheres=" + date_fin_encheres + "]";
+	}
 }
