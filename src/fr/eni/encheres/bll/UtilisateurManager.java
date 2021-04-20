@@ -52,23 +52,21 @@ public class UtilisateurManager {
 		}
 	}
 
-	public boolean seConnecter(Utilisateur utilisateur) throws BusinessException {
-
-		boolean connexionOK = false;
+	public Utilisateur seConnecter(String pseudo, String password) throws BusinessException {
 
 		try {
-			Utilisateur utilisateurBase = utilisateurDAO.seConnecter(utilisateur.getId());
+			Utilisateur utilisateurBase = utilisateurDAO.seConnecter(pseudo, password);
 
-			if (utilisateur.getPseudo() == utilisateurBase.getPseudo()
-					&& utilisateur.getMot_de_passe() == utilisateurBase.getMot_de_passe()) {
-				connexionOK = true;
+			if (utilisateurBase.getId() == null) {
+				throw new BusinessException();
+			} else {
+				return utilisateurBase;
 			}
 
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 
-		return connexionOK;
 	}
 }

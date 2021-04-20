@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.encheres.bll.UtilisateurManager;
+import fr.eni.encheres.bo.BusinessException;
+import fr.eni.encheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class ConnectionPageServlet
@@ -34,8 +36,12 @@ public class ConnectionPageServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		System.out.println(id);
 		System.out.println(password);
-		// userManager.seConnecter(id, password);
-		response.sendRedirect(request.getContextPath() + "/connection");
+		try {
+			Utilisateur test = userManager.seConnecter(id, password);
+			request.setAttribute("user", test);
+		} catch (BusinessException e) {
+			request.setAttribute("errorMessage", "impossible de se connecter");
+		}
+		request.getRequestDispatcher("/WEB-INF/jsp/connection.jsp").forward(request, response);
 	}
-
 }
