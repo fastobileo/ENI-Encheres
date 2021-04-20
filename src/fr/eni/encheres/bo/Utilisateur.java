@@ -2,7 +2,7 @@ package fr.eni.encheres.bo;
 
 public class Utilisateur {
 
-	private int id;
+	private Integer id;
 	private String pseudo;
 	private String nom;
 	private String prenom;
@@ -14,8 +14,8 @@ public class Utilisateur {
 	private String mot_de_passe;
 	private int credit;
 	private boolean administrateur;
-	
-	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue,
+
+	public Utilisateur(Integer id, String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur) {
 		super();
 		this.id = id;
@@ -31,24 +31,22 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administrateur = administrateur;
 	}
-	
+
 	public Utilisateur(String pseudo, String mot_de_passe) {
 		super();
 		this.pseudo = pseudo;
 		this.mot_de_passe = mot_de_passe;
 	}
 
-
-
 	public Utilisateur() {
 		super();
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -7,8 +7,11 @@ import java.sql.SQLException;
 public abstract class ConnectionProvider {
 
 	public static Connection getConnection() throws SQLException {
-		String dbURL = "jdbc:sqlserver://localhost;user=encheres;password=P@ssw0rd";
-		Connection conn = DriverManager.getConnection(dbURL);
+		DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
+		String dbURL = "jdbc:sqlserver://localhost;databaseName=ENCHERES";
+		String user = "sa";
+		String pass = "leoDLR31102000,";
+		Connection conn = DriverManager.getConnection(dbURL, user, pass);
 		return conn;
 	}
 }

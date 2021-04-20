@@ -16,5 +16,5 @@ public interface UtilisateurDAO{
 	
 	void delete(Utilisateur utilisateur) throws DALException;
 	
-	Utilisateur seConnecter(int id) throws DALException;
+	public Utilisateur seConnecter(String pseudo, String password) throws DALException;
 }

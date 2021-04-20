@@ -51,4 +51,22 @@ public class UtilisateurManager {
 			e.printStackTrace();
 		}
 	}
+
+	public Utilisateur seConnecter(String pseudo, String password) throws BusinessException {
+
+		try {
+			Utilisateur utilisateurBase = utilisateurDAO.seConnecter(pseudo, password);
+
+			if (utilisateurBase.getId() == null) {
+				throw new BusinessException();
+			} else {
+				return utilisateurBase;
+			}
+
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
 }

@@ -39,6 +39,10 @@
 		<br>
 		<a class="btn btn-dark btn-block"/>Créer un compte</a>
 	</div>
+	<h1>${errorMessage }</h1>
+	<h1>${user.getId() }</h1>
+	<h1>${sessionScope.idUser}</h1>
+	
 	
 	<jsp:include page="foot.jsp" />
 
