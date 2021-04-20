@@ -12,7 +12,7 @@ public class EnchereManager {
 
 	private EnchereDAO enchereDAO;
 
-	public EnchereManager(EnchereDAO encherDAO) {
+	public EnchereManager() {
 		enchereDAO = fr.eni.encheres.dal.DAOFactory.getEnchereDAO();
 	}
 

@@ -35,10 +35,7 @@ public void add(Article article) throws DALException {
 			ps.setDate(3, (Date) article.getDate_debut_encheres());
 			ps.setDate(4, (Date) article.getDate_fin_encheres());
 			ps.setInt(5, article.getPrix_initial());
-			ps.setInt(6, article.getPrix_vente());
-			ps.setInt(7, article.getNo_utilisateur());
-			ps.setInt(8, article.getNo_categorie());
-			ps.setInt(9, article.getNo_retrait());			
+			ps.setInt(6, article.getPrix_vente());		
 			
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {
@@ -68,9 +65,6 @@ public void add(Article article) throws DALException {
 			ps.setDate(4, (Date) article.getDate_fin_encheres());
 			ps.setInt(5, article.getPrix_initial());
 			ps.setInt(6, article.getPrix_vente());
-			ps.setInt(7, article.getNo_utilisateur());
-			ps.setInt(8, article.getNo_categorie());
-			ps.setInt(9, article.getNo_retrait());	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -99,9 +93,6 @@ public void add(Article article) throws DALException {
 				article.setDate_fin_encheres(rs.getDate("date_fin_encheres"));
 				article.setPrix_initial(rs.getInt("prix_initial"));
 				article.setPrix_vente(rs.getInt("prix_vente"));
-				article.setNo_utilisateur(rs.getInt("no_utilisateur"));
-				article.setNo_categorie(rs.getInt("no_categorie"));
-				article.setNo_retrait(rs.getInt("no_retrait"));
 				listeArticles.add(article);
 			}			
 		} catch (SQLException e) {
@@ -124,9 +115,6 @@ public void add(Article article) throws DALException {
 			ps.setDate(4, (Date) article.getDate_fin_encheres());
 			ps.setInt(5, article.getPrix_initial());
 			ps.setInt(6, article.getPrix_vente());
-			ps.setInt(7, article.getNo_utilisateur());
-			ps.setInt(8, article.getNo_categorie());
-			ps.setInt(9, article.getNo_retrait());	
 			
 			ps.executeUpdate();
 			
