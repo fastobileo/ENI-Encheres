@@ -40,9 +40,11 @@ public class ConnectionPageServlet extends HttpServlet {
 			request.setAttribute("user", user);
 			HttpSession session = request.getSession();
 			session.setAttribute("idUser", user.getId());
+			response.sendRedirect(request.getContextPath() + "/");
 		} catch (BusinessException e) {
 			request.setAttribute("errorMessage", "impossible de se connecter");
+			request.getRequestDispatcher("/WEB-INF/jsp/connection.jsp").forward(request, response);
 		}
-		request.getRequestDispatcher("/WEB-INF/jsp/connection.jsp").forward(request, response);
+
 	}
 }

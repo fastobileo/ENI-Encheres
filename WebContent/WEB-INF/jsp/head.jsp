@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,29 +28,45 @@
 				aria-label="Toggle navigation">
 				<i class="fas fa-bars"></i>
 			</button>
-			<a class="navbar-brand" href="#"><i class="fas fa-home"></i></a>
+			<a class="navbar-brand" href="${pageContext.servletContext.contextPath}/"><i class="fas fa-home"></i></a>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="#">${param.title }</a></li>
 				</ul>
-				
-				<ul class="navbar-nav w-auto mb-2 mb-lg-0">
-					<li class="nav-item me-3 me-lg-0 dropdown w-auto"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-							<i class="fas fa-user text-success"></i>
-					</a>
-						<ul class="dropdown-menu dropdown-menu-end"
-							aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">Voir son profil</a></li>
-							<li><a class="dropdown-item" href="#">Modifier son
-									profil</a></li>
-							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="${pageContext.servletContext.contextPath}/Deconnexion">Deconnexion</a></li>
-						</ul></li>
-				</ul>
-
+				<c:choose>
+					<c:when test="${sessionScope.idUser==null}">
+						<ul class="navbar-nav w-auto mb-2 mb-lg-0">
+							<li class="nav-item me-3 me-lg-0 dropdown w-auto"><a
+								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+								role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+									<i class="fas fa-user text-danger"></i>
+							</a>
+								<ul class="dropdown-menu dropdown-menu-end"
+									aria-labelledby="navbarDropdown">
+									<li><a class="dropdown-item" href="${pageContext.servletContext.contextPath}/connection">Connexion</a></li>
+								</ul></li>
+						</ul>
+					</c:when>
+					<c:otherwise>
+						<ul class="navbar-nav w-auto mb-2 mb-lg-0">
+							<li class="nav-item me-3 me-lg-0 dropdown w-auto"><a
+								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+								role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+									<i class="fas fa-user text-success"></i>
+							</a>
+								<ul class="dropdown-menu dropdown-menu-end"
+									aria-labelledby="navbarDropdown">
+									<li><a class="dropdown-item" href="#">Voir son profil</a></li>
+									<li><a class="dropdown-item" href="#">Modifier son
+											profil</a></li>
+									<li><hr class="dropdown-divider" /></li>
+									<li><a class="dropdown-item"
+										href="${pageContext.servletContext.contextPath}/Deconnexion">Deconnexion</a></li>
+								</ul></li>
+						</ul>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</nav>
