@@ -15,6 +15,8 @@ public class Retrait {
 		this.ville = ville;
 	}
 
+	// modification test
+	
 	public Retrait() {
 		super();
 	}
