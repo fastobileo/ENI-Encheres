@@ -6,13 +6,15 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public interface UtilisateurDAO{
 
-	void add(Utilisateur utilisateur);
+	void add(Utilisateur utilisateur) throws DALException;
 	
-	Utilisateur findById(int id);
+	Utilisateur findById(int id) throws DALException;
+	 
+	List<Utilisateur> findAll() throws DALException;	
 	
-	List<Utilisateur> findAll();	
+	void update(Utilisateur utilisateur) throws DALException;
 	
-	void update(Utilisateur utilisateur);
+	void delete(Utilisateur utilisateur) throws DALException;
 	
-	void delete(Utilisateur utilisateur);
+	public Utilisateur seConnecter(int id) throws DALException;
 }

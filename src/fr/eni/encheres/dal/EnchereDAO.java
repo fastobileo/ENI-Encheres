@@ -6,13 +6,13 @@ import fr.eni.encheres.bo.Enchere;
 
 public interface EnchereDAO {
 
-	void add (Enchere enchere);
+	void add (Enchere enchere) throws DALException;
 	
-	Enchere findById(int no_enchere);
+	Enchere findById(int no_enchere) throws DALException;
 	
-	List<Enchere> findAll();
+	List<Enchere> findAll() throws DALException;
 	
-	void delete(Enchere enchere);
+	void delete(Enchere enchere) throws DALException;
 	
-	void update(Enchere enchere);
+	void update(Enchere enchere) throws DALException;
 }

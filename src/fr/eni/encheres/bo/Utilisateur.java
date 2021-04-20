@@ -31,6 +31,14 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administrateur = administrateur;
 	}
+	
+	public Utilisateur(String pseudo, String mot_de_passe) {
+		super();
+		this.pseudo = pseudo;
+		this.mot_de_passe = mot_de_passe;
+	}
+
+
 
 	public Utilisateur() {
 		super();

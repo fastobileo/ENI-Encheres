@@ -24,7 +24,7 @@ public class EnchereDAOImpl implements EnchereDAO{
 	private final String UPDATE = "UPDATE ENCHERES set date_enchere = ?, montant_enchere = ?, no_article = ?, no_utilisateur = ? WHERE no_enchere = ?";
 	
 	@Override
-	public void add(Enchere enchere) {
+	public void add(Enchere enchere) throws DALException {
 		
 		try (Connection connection = ConnectionProvider.getConnection()) {
 			
@@ -44,11 +44,12 @@ public class EnchereDAOImpl implements EnchereDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}		
 	}
 
 	@Override
-	public Enchere findById(int no_enchere) {
+	public Enchere findById(int no_enchere) throws DALException {
 		
 		Enchere enchere = null;
 		
@@ -67,12 +68,13 @@ public class EnchereDAOImpl implements EnchereDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}		
 		return enchere;
 	}
 
 	@Override
-	public List<Enchere> findAll() {
+	public List<Enchere> findAll() throws DALException {
 
 		List<Enchere> listeEnchere = new ArrayList<Enchere>();
 		
@@ -92,12 +94,13 @@ public class EnchereDAOImpl implements EnchereDAO{
 			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}		
 		return listeEnchere;
 	}
 
 	@Override
-	public void delete(Enchere enchere) {
+	public void delete(Enchere enchere) throws DALException {
 		
 		try(Connection connection = ConnectionProvider.getConnection()) {
 			
@@ -112,12 +115,13 @@ public class EnchereDAOImpl implements EnchereDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}
 		
 	}
 
 	@Override
-	public void update(Enchere enchere) {
+	public void update(Enchere enchere) throws DALException {
 
 		try(Connection connection = ConnectionProvider.getConnection()) {
 			
@@ -129,8 +133,8 @@ public class EnchereDAOImpl implements EnchereDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}
-		
 	}
 
 }

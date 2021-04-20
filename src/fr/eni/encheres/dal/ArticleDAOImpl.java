@@ -24,7 +24,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 	private final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article = ?, description = ?, date_debut_encheres = ?, date_fin_encheres = ?, prix_initial = ?, prix_vente = ?, no_utilisateur = ?, no_categorie = ?, no_retrait = ? WHERE no_article = ?";
 	
 	@Override
-	public void add(Article article) {
+public void add(Article article) throws DALException {
 		
 		try(Connection connection = ConnectionProvider.getConnection()) {
 			
@@ -46,11 +46,12 @@ public class ArticleDAOImpl implements ArticleDAO{
 			}							
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}		
 	}
 
 	@Override
-	public Article findById(int no_article) {
+	public Article findById(int no_article) throws DALException {
 		
 		Article article = null;
 		
@@ -73,12 +74,13 @@ public class ArticleDAOImpl implements ArticleDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}		
 		return article;
 	}
 
 	@Override
-	public List<Article> findAll() {
+	public List<Article> findAll() throws DALException {
 		
 		List<Article> listeArticles = new ArrayList<Article>();
 		
@@ -104,12 +106,13 @@ public class ArticleDAOImpl implements ArticleDAO{
 			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}		
 		return listeArticles;
 	}
 
 	@Override
-	public void delete(Article article) {
+	public void delete(Article article) throws DALException {
 		
 		try(Connection connection = ConnectionProvider.getConnection()) {
 			
@@ -129,11 +132,12 @@ public class ArticleDAOImpl implements ArticleDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}	
 	}
 
 	@Override
-	public void update(Article article) {		
+	public void update(Article article) throws DALException {		
 
 		try (Connection connection = ConnectionProvider.getConnection()) {
 			
@@ -145,6 +149,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}
 	}
 

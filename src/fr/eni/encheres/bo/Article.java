@@ -11,10 +11,10 @@ public class Article {
 	private String description;
 	private int prix_initial;
 	private int prix_vente;
-	private int no_utilisateur;
-	private int no_categorie;
-	private int no_retrait;
-	private Categorie categorie;
+	private int no_utilisateur; // à enlever
+	private int no_categorie; // à enlever
+	private int no_retrait; // à enlever
+	private Categorie categorie; 
 	private Date date_debut_encheres;
 	private Date date_fin_encheres;
 	

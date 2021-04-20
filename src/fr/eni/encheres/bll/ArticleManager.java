@@ -5,8 +5,9 @@ import java.util.List;
 
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.BusinessException;
-import fr.eni.encheres.bo.Categorie;
+// import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.dal.ArticleDAO;
+import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
 
 
@@ -19,18 +20,25 @@ public class ArticleManager {
 	
 	public Article ajouterArticle (Article articleAInserer)throws BusinessException{
 		
-		articleDAO.add(articleAInserer);
+		try {
+			articleDAO.add(articleAInserer);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BusinessException();
+		}
 		
 		return articleAInserer;
 	}
 	
-	public List<Categorie> getCategorie () throws BusinessException{
+/*	public List<Categorie> getCategorie () throws BusinessException{
 		
 		List<Categorie> listeCategorie = new ArrayList<>();
-		listeCategorie = articleDAO.findAllCategorie();
+		try {
+			listeCategorie = articleDAO.findAllCategorie();
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BusinessException();
+		}		
 		return listeCategorie;
-		
-	}
-
-	
+	} */
 }

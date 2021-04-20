@@ -22,8 +22,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	
 	private final String UPDATE = "UPDATE UTILISATEURS set pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ? WHERE id = ?";
 	
+	private final String GET_PASSWORD = "select pseudo, mot_de_passe FROM UTILISATEURS where id = ?";
+	
 	@Override
-	public void add(Utilisateur utilisateur) {
+	public void add(Utilisateur utilisateur) throws DALException {
 		
 		try (Connection connection = ConnectionProvider.getConnection()) {
 			
@@ -49,11 +51,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}		
 	}
 
 	@Override
-	public Utilisateur findById(int id) {
+	public Utilisateur findById(int id) throws DALException {
 		
 		Utilisateur utilisateur = null;
 		
@@ -79,12 +82,13 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}		
 		return utilisateur;
 	}
 
 	@Override
-	public List<Utilisateur> findAll() {
+	public List<Utilisateur> findAll() throws DALException {
 		
 		List<Utilisateur> listeUtilisateur = new ArrayList<Utilisateur>();
 		
@@ -112,12 +116,13 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}		
 		return listeUtilisateur;
 	}
 
 	@Override
-	public void update(Utilisateur utilisateur) {		
+	public void update(Utilisateur utilisateur) throws DALException {		
 		
 		try(Connection connection = ConnectionProvider.getConnection()) {
 			
@@ -138,11 +143,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}		
 	}
 
 	@Override
-	public void delete(Utilisateur utilisateur) {
+	public void delete(Utilisateur utilisateur) throws DALException {
 		
 		try (Connection connection = ConnectionProvider.getConnection()) {
 			
@@ -154,7 +160,32 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DALException(e);
 		}
+		
+	}
+	
+	public Utilisateur seConnecter(int id) throws DALException {
+	
+		String mdputilisateur = null;
+		String pseudoUtilisateur = null;
+		Utilisateur utilisateur = new Utilisateur(pseudoUtilisateur, pseudoUtilisateur);
+		
+		try(Connection connection = ConnectionProvider.getConnection()) {
+			
+			PreparedStatement ps = connection.prepareStatement(GET_PASSWORD); 
+			
+			ResultSet rs = ps.executeQuery();
+			
+			mdputilisateur = rs.getString("mot_de_passe");
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DALException(e);
+		}
+		return utilisateur;
 		
 	}
 }
