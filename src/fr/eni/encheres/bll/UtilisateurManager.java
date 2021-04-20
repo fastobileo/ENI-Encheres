@@ -13,7 +13,7 @@ public class UtilisateurManager {
 	
 	private UtilisateurDAO utilisateurDAO;
 
-	public UtilisateurManager(UtilisateurDAO utilisateurDAO) {
+	public UtilisateurManager() {
 		utilisateurDAO = DAOFactory.getUtilisateurDAO();
 		}
 	
@@ -52,9 +52,11 @@ public class UtilisateurManager {
 		}
 	}
 	
-	public boolean seConnecter(Utilisateur utilisateur) throws BusinessException {
+	public boolean seConnecter(String mdpUtilisateur, String pseudoUtilisteur) throws BusinessException {
 		
 		boolean connexionOK = false;
+		
+		Utilisateur utilisateur = new Utilisateur(pseudoUtilisteur, mdpUtilisateur);
 		
 		try {
 			Utilisateur utilisateurBase = utilisateurDAO.seConnecter(utilisateur.getId());

@@ -13,4 +13,8 @@ public class DAOFactory {
 	public static ArticleDAO getArticleDAO() {
 		return new ArticleDAOImpl();
 	}
+	
+	public static RetraitDAO getRetraitDAO() {
+		return new RetraitDAOImpl();
+	}
 }

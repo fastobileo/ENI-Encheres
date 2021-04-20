@@ -161,15 +161,14 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DALException(e);
-		}
-		
+		}		
 	}
 	
 	public Utilisateur seConnecter(int id) throws DALException {
 	
 		String mdputilisateur = null;
 		String pseudoUtilisateur = null;
-		Utilisateur utilisateur = new Utilisateur(pseudoUtilisateur, pseudoUtilisateur);
+		Utilisateur utilisateur = new Utilisateur(pseudoUtilisateur, mdputilisateur);
 		
 		try(Connection connection = ConnectionProvider.getConnection()) {
 			
