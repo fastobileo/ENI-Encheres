@@ -2,8 +2,6 @@ package fr.eni.encheres.bo;
 
 import java.util.Date;
 
-import fr.eni.encheres.bo.enumeration.Categorie;
-
 public class Article {
 
 	private int no_article;
