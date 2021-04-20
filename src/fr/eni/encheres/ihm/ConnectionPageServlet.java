@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.BusinessException;
@@ -34,11 +35,11 @@ public class ConnectionPageServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-		System.out.println(id);
-		System.out.println(password);
 		try {
-			Utilisateur test = userManager.seConnecter(id, password);
-			request.setAttribute("user", test);
+			Utilisateur user = userManager.seConnecter(id, password);
+			request.setAttribute("user", user);
+			HttpSession session = request.getSession();
+			session.setAttribute("idUser", user.getId());
 		} catch (BusinessException e) {
 			request.setAttribute("errorMessage", "impossible de se connecter");
 		}

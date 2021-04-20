@@ -32,6 +32,7 @@
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="#">${param.title }</a></li>
 				</ul>
+				
 				<ul class="navbar-nav w-auto mb-2 mb-lg-0">
 					<li class="nav-item me-3 me-lg-0 dropdown w-auto"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -44,7 +45,7 @@
 							<li><a class="dropdown-item" href="#">Modifier son
 									profil</a></li>
 							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="#">Deconnexion</a></li>
+							<li><a class="dropdown-item" href="${pageContext.servletContext.contextPath}/Deconnexion">Deconnexion</a></li>
 						</ul></li>
 				</ul>
 
