@@ -16,11 +16,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	private final String INSERT = "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit) values (?,?,?,?,?,?,?,?,?,?)";
 
-	private final String FIND_ALL = "select id, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS";
+	private final String FIND_ALL = "select no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS";
 
-	private final String DELETE = "DELETE FROM UTILISATEURS WHERE id=?";
+	private final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 
-	private final String UPDATE = "UPDATE UTILISATEURS set pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ? WHERE id = ?";
+	private final String UPDATE = "UPDATE UTILISATEURS set pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ? WHERE no_utilisateur = ?";
 
 	private final String GET_PASSWORD = "SELECT no_utilisateur from UTILISATEURS WHERE pseudo = ? AND mot_de_passe = ?";
 
