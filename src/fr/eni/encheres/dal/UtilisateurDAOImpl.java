@@ -12,17 +12,17 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO{
 
-	private final String FIND_BY_ID = "select id, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where id = ?";
+	private final String FIND_BY_ID = "select no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where no_utilisateur = ?";
 	
 	private final String INSERT = "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit) values (?,?,?,?,?,?,?,?,?,?)";
 	
-	private final String FIND_ALL = "select id, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS";
+	private final String FIND_ALL = "select no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS";
 	
-	private final String DELETE = "DELETE FROM UTILISATEURS WHERE id=?";
+	private final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 	
-	private final String UPDATE = "UPDATE UTILISATEURS set pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ? WHERE id = ?";
+	private final String UPDATE = "UPDATE UTILISATEURS set pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ? WHERE no_utilisateur = ?";
 	
-	private final String GET_PASSWORD = "select pseudo, mot_de_passe FROM UTILISATEURS where id = ?";
+	private final String GET_PASSWORD = "select pseudo, mot_de_passe FROM UTILISATEURS where no_utilisateur = ?";
 	
 	@Override
 	public void add(Utilisateur utilisateur) throws DALException {
@@ -67,7 +67,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			
 			ResultSet rs = ps.executeQuery();
 			
-			utilisateur.setId(rs.getInt("id"));
+			utilisateur.setId(rs.getInt("no_utilisateur"));
 			utilisateur.setPseudo(rs.getString("pseudo"));
 			utilisateur.setNom(rs.getString("nom"));
 			utilisateur.setPrenom(rs.getString("prenom"));
@@ -99,7 +99,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			ResultSet rs = st.executeQuery(FIND_ALL);
 			while(rs.next()) {
 				Utilisateur utilisateur = new Utilisateur();
-				utilisateur.setId(rs.getInt("id"));
+				utilisateur.setId(rs.getInt("no_utilisateur"));
 				utilisateur.setPseudo(rs.getString("pseudo"));
 				utilisateur.setNom(rs.getString("nom"));
 				utilisateur.setPrenom(rs.getString("prenom"));

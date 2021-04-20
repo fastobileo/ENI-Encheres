@@ -1,7 +1,5 @@
 package fr.eni.encheres.bll;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.BusinessException;

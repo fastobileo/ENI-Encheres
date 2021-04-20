@@ -16,16 +16,16 @@
 	<div class="container" style="max-width: 600px;">
 	<h2 class = "text-center">Mon profil</h2>
 		<div>
-	          	<p>Pseudo :
-	          	<p>Nom : 
-	          	<p>Prénom : 
-	          	<p>Email :
-	          	<p>Téléphone :
+	          	<p>Pseudo : ${user.getPseudo()}
+	          	<p>Nom : ${user.getNom()}
+	          	<p>Prénom : ${user.getPrenom()}
+	          	<p>Email : ${user.getEmail()}
+	          	<p>Téléphone : ${user.getTelephone()}
 	          	<p>Adresse :
 	          	<ul>
-	          		<li>Rue :</li>
-	          		<li>Code postal :</li>
-	          		<li>Ville :</li>
+	          		<li>Rue : ${user.getRue()}</li>
+	          		<li>Code postal : ${user.getCodePostal()}</li>
+	          		<li>Ville : ${user.getVille()}</li>
 	          	</ul>
 	          	<div class = "text-center">
 	          		<button>Modifier</button>
