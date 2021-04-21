@@ -32,10 +32,17 @@ public class AfficherProfilServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		Utilisateur utilisateur = null;
+		Integer id = null;
 
 		try {
-			utilisateur = utilisateurManager.afficherUtilisateur(1);
+			id = Integer.parseInt(request.getParameter("id"));
+			utilisateur = utilisateurManager.afficherUtilisateur(id);
+			if (utilisateur.getId() == null) {
+				throw new Exception();
+			}
 		} catch (Exception e) {
+			request.setAttribute("errorMessage", "l'utilisateur n'est pas disponible");
+
 			e.printStackTrace();
 		}
 		request.setAttribute("user", utilisateur);
