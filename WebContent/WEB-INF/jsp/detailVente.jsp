@@ -62,6 +62,9 @@
 				<c:if test="${user.getId()==sessionScope.idUser}">
 					<a href="#" class="btn btn-block btn-dark">Enchérir</a>
 				</c:if>
+				<p>
+					<input type = "number" name = "encherir" min = ${enchere.getMontant_enchere() } max = "1548485485484848484" step ="1">
+				</p>
 			</c:otherwise>
 		</c:choose>
 	</div>
