@@ -57,7 +57,7 @@
 							</a>
 								<ul class="dropdown-menu dropdown-menu-end"
 									aria-labelledby="navbarDropdown">
-									<li><a class="dropdown-item" href="#">Voir son profil</a></li>
+									<li><a class="dropdown-item" href="${pageContext.servletContext.contextPath}/AfficherProfil">Voir son profil</a></li>
 									<li><a class="dropdown-item" href="#">Modifier son
 											profil</a></li>
 									<li><hr class="dropdown-divider" /></li>

@@ -66,21 +66,25 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			ps.setInt(1, id);
 
 			ResultSet rs = ps.executeQuery();
-		
-			utilisateur.setId(rs.getInt("no_utilisateur"));
+			while (rs.next()) {
+				utilisateur.setId(rs.getInt("no_utilisateur"));
+				utilisateur.setPseudo(rs.getString("pseudo"));
+				utilisateur.setNom(rs.getString("nom"));
+				utilisateur.setPrenom(rs.getString("prenom"));
+				utilisateur.setEmail(rs.getString("email"));
+				utilisateur.setTelephone(rs.getString("telephone"));
+				utilisateur.setRue(rs.getString("rue"));
+				utilisateur.setCode_postal(rs.getString("code_postal"));
+				utilisateur.setVille(rs.getString("ville"));
+				utilisateur.setMot_de_passe(rs.getString("mot_de_passe"));
+				utilisateur.setCredit(rs.getInt("credit"));
+				utilisateur.setAdministrateur(rs.getBoolean("administrateur"));
+			}
 
-			utilisateur.setPseudo(rs.getString("pseudo"));
-			utilisateur.setNom(rs.getString("nom"));
-			utilisateur.setPrenom(rs.getString("prenom"));
-			utilisateur.setEmail(rs.getString("email"));
-			utilisateur.setTelephone(rs.getString("telephone"));
-			utilisateur.setRue(rs.getString("rue"));
-			utilisateur.setCode_postal(rs.getString("code_postal"));
-			utilisateur.setVille(rs.getString("ville"));
-			utilisateur.setMot_de_passe(rs.getString("mot_de_passe"));
-			utilisateur.setCredit(rs.getInt("credit"));
-			utilisateur.setAdministrateur(rs.getBoolean("administrateur"));
+			System.out.println(utilisateur.getId());
 
+			rs.close();
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DALException(e);

@@ -20,11 +20,11 @@ public class UtilisateurManager {
 	public Utilisateur afficherUtilisateur(int id) throws BusinessException {
 
 		Utilisateur utilisateur = null;
+		System.out.println("test");
 
 		try {
 			utilisateur = utilisateurDAO.findById(id);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return utilisateur;
