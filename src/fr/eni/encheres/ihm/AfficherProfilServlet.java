@@ -38,7 +38,7 @@ public class AfficherProfilServlet extends HttpServlet {
 		Utilisateur utilisateur = null;
 
 		try {
-			utilisateur = utilisateurManager.afficherUtilisateur(1);
+			utilisateur = utilisateurManager.afficherUtilisateur(2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
