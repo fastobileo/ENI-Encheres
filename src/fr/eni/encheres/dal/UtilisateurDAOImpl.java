@@ -58,7 +58,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	@Override
 	public Utilisateur findById(int id) throws DALException {
 
-		Utilisateur utilisateur = null;
+		Utilisateur utilisateur = new Utilisateur();
 
 		try (Connection connection = ConnectionProvider.getConnection()) {
 
@@ -80,9 +80,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 				utilisateur.setCredit(rs.getInt("credit"));
 				utilisateur.setAdministrateur(rs.getBoolean("administrateur"));
 			}
-
-			System.out.println(utilisateur.getId());
-
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {

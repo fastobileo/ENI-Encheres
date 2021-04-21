@@ -25,13 +25,9 @@ public class AfficherProfilServlet extends HttpServlet {
 	 */
 	public AfficherProfilServlet() {
 		super();
-		// TODO Auto-generated constructor stub
+		utilisateurManager = new UtilisateurManager();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
