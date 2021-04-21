@@ -24,7 +24,7 @@
 	          	<p>Adresse :
 	          	<ul>
 	          		<li>Rue : ${user.getRue()}</li>
-	          		<li>Code postal : ${user.getCodePostal()}</li>
+	          		<li>Code postal : ${user.getCode_postal()}</li>
 	          		<li>Ville : ${user.getVille()}</li>
 	          	</ul>
 	          	<div class = "text-center">

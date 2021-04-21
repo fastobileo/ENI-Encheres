@@ -18,9 +18,7 @@ public class UtilisateurManager {
 	}
 
 	public Utilisateur afficherUtilisateur(int id) throws BusinessException {
-
 		Utilisateur utilisateur = null;
-		System.out.println("test");
 
 		try {
 			utilisateur = utilisateurDAO.findById(id);
