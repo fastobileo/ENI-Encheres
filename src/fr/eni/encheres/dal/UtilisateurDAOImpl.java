@@ -66,6 +66,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			ps.setInt(1, id);
 
 			ResultSet rs = ps.executeQuery();
+
 			while (rs.next()) {
 				utilisateur.setId(rs.getInt("no_utilisateur"));
 				utilisateur.setPseudo(rs.getString("pseudo"));
@@ -82,6 +83,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			}
 			rs.close();
 			ps.close();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DALException(e);

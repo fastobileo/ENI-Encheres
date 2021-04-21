@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Profil</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 <body>
 
@@ -35,7 +35,7 @@
 							<td>${user.getNom()}</td>
 						</tr>
 						<tr>
-							<th scope="row">Prénom</th>
+							<th scope="row">PrÃ©nom</th>
 							<td>${user.getPrenom()}</td>
 						</tr>
 						<tr>
@@ -43,11 +43,11 @@
 							<td>${user.getEmail()}</td>
 						</tr>
 						<tr>
-							<th scope="row">Prénom</th>
+							<th scope="row">PrÃ©nom</th>
 							<td>${user.getPrenom()}</td>
 						</tr>
 						<tr>
-							<th scope="row">Téléphone</th>
+							<th scope="row">TÃ©lÃ©phone</th>
 							<td>${user.getTelephone()}</td>
 						</tr>
 						<tr>

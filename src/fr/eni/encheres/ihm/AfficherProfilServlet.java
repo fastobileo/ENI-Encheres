@@ -40,6 +40,7 @@ public class AfficherProfilServlet extends HttpServlet {
 			if (utilisateur.getId() == null) {
 				throw new Exception();
 			}
+			utilisateur = utilisateurManager.afficherUtilisateur(id);
 		} catch (Exception e) {
 			request.setAttribute("errorMessage", "l'utilisateur n'est pas disponible");
 
