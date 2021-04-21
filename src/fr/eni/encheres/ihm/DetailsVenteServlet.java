@@ -7,34 +7,59 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class DetailsVenteServlet
- */
+import fr.eni.encheres.bll.ArticleManager;
+import fr.eni.encheres.bll.EnchereManager;
+import fr.eni.encheres.bll.RetraitManager;
+import fr.eni.encheres.bo.Article;
+import fr.eni.encheres.bo.Enchere;
+import fr.eni.encheres.bo.Retrait;
+
 @WebServlet("/detailsVente")
 public class DetailsVenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DetailsVenteServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	private ArticleManager articleManager;
+	private EnchereManager enchereManager;
+	private RetraitManager retraitManager;
+	
+    public DetailsVenteServlet() {
+    	articleManager = new ArticleManager();
+    	enchereManager = new EnchereManager();
+    	retraitManager = new RetraitManager();
+    }
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		Article article = null;
+		Enchere enchere = null;
+		Retrait retrait = null;
+		Integer id_article = null;
+		Integer id_enchere = null;
+		Integer id_retrait = null;
+		
+		try {
+			id_enchere = Integer.parseInt(request.getParameter("id_enchere"));
+			id_article = Integer.parseInt(request.getParameter("id_article"));
+			id_retrait = Integer.parseInt(request.getParameter("no_retrait"));
+		
+			if (article.getNo_article() < 0 || enchere.getNo_article() < 0 || retrait.getId() < 0) {
+				throw new Exception();
+			}
+			article = articleManager.findById(id_article);
+			enchere = enchereManager.afficherEnchereById(id_enchere);
+			retrait = retraitManager.findById(id_retrait);
+		} catch (Exception e) {
+			request.setAttribute("errorMessage", "Enchere non disponible");
+			e.printStackTrace();
+		}
+		request.setAttribute("article", article);
+		request.setAttribute("enchere", enchere);		
+		request.setAttribute("retrait", retrait);
+		
 		request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

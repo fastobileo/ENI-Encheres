@@ -16,7 +16,7 @@ public class ArticleManager {
 		this.articleDAO = DAOFactory.getArticleDAO();
 	}
 	
-	public Article ajouterArticle (Article articleAInserer)throws BusinessException{
+	public void ajouterArticle (Article articleAInserer)throws BusinessException{
 		
 		try {
 			articleDAO.add(articleAInserer);
@@ -24,19 +24,18 @@ public class ArticleManager {
 			e.printStackTrace();
 			throw new BusinessException();
 		}
-		
-		return articleAInserer;
 	}
 	
-/*	public List<Categorie> getCategorie () throws BusinessException{
+	public Article findById(int no_article) throws BusinessException {
 		
-		List<Categorie> listeCategorie = new ArrayList<>();
+		Article article = new Article();
+		
 		try {
-			listeCategorie = articleDAO.findAllCategorie();
+			article = articleDAO.findById(no_article);
 		} catch (DALException e) {
 			e.printStackTrace();
 			throw new BusinessException();
-		}		
-		return listeCategorie;
-	} */
+		}
+		return article;
+	}
 }

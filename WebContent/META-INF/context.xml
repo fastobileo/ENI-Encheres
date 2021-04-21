@@ -7,7 +7,7 @@
 		driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
 		url = "jdbc:sqlserver://localhost;databaseName=ENCHERES"
 		username = "sa"
-		password = "leoDLR31102000,"
+		password = "123456"
 	
 		maxIdle = "5"
 		maxTotal = "10"

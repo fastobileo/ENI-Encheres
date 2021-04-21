@@ -14,4 +14,27 @@ public class RetraitManager {
 		retraitDAO = DAOFactory.getRetraitDAO();
 	}
 	
+	public Retrait findById(int no_retrait) throws BusinessException {
+		
+		Retrait retrait = new Retrait();
+		
+		try {
+			retrait = retraitDAO.findById(no_retrait);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BusinessException();
+		}
+		
+		return retrait;
+	}
+	
+	public void ajoutRetrait(Retrait retrait) throws BusinessException {
+		
+		try {
+			retraitDAO.add(retrait);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BusinessException();
+		}
+	} 
 }
