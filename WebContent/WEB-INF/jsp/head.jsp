@@ -58,7 +58,7 @@
 								<ul class="dropdown-menu dropdown-menu-end"
 									aria-labelledby="navbarDropdown">
 									<li><a class="dropdown-item" href="${pageContext.servletContext.contextPath}/AfficherProfil?id=${sessionScope.idUser}">Voir son profil</a></li>
-									<li><a class="dropdown-item" href="#">Modifier son
+									<li><a class="dropdown-item" href="${pageContext.servletContext.contextPath}/modifierProfil?id=${sessionScope.idUser}">Modifier son
 											profil</a></li>
 									<li><hr class="dropdown-divider" /></li>
 									<li><a class="dropdown-item"
