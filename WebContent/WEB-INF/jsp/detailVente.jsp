@@ -26,15 +26,15 @@
 					<tbody>
 						<tr>
 							<th scope="row"></th>
-							<td>${article.getNom_article()}</td>
+							<td>${enchere.getArticle().getNom_article()}</td>
 						</tr>
 						<tr>
 							<th scope="row">Description</th>
-							<td>${article.getDescription()}</td>
+							<td>${enchere.getArticle().getDescription()}</td>
 						</tr>
 						<tr>
 							<th scope="row">Catégorie</th>
-							<td>${article.getCategorie()}</td>
+							<td>${enchere.getArticle().getCategorie()}</td>
 						</tr>
 						<tr>
 							<th scope="row">Meilleure offre</th>
@@ -42,20 +42,20 @@
 						</tr>
 						<tr>
 							<th scope="row">Mise à prix</th>
-							<td>${article.getPrix_initial()}</td>
+							<td>${enchere.getArticle().getPrix_initial()}</td>
 						</tr>
 						<tr>
 							<th scope="row">Fin de l'enchère</th>
-							<td>${article.getDate_fin_encheres()}</td>
+							<td>${enchere.getArticle().getDate_fin_encheres()}</td>
 						</tr>
 						<tr>
 							<th scope="row">Retrait</th>
-							<td>${retrait.getRue()},${retrait.getCode_postal()},
-								${retrait.getVille()}</td>
+							<td>${enchere.getUtilisateur().getRue()},${enchere.getUtilisateur().getRue()},
+								${enchere.getUtilisateur().getRue().getVille()}</td>
 						</tr>
 						<tr>
 							<th scope="row">Vendeur</th>
-							<td>${enchere.getNo_utilisateur()}</td>
+							<td>${enchere.getUtilisateur().getPseudo()}</td>
 						</tr>
 					</tbody>
 				</table>

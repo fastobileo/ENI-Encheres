@@ -15,4 +15,6 @@ public interface EnchereDAO {
 	void delete(Enchere enchere) throws DALException;
 	
 	void update(Enchere enchere) throws DALException;
+	
+	Enchere getEnchereInnerJoin(int id_enchere) throws DALException;
 }
