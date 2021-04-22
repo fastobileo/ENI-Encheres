@@ -59,9 +59,11 @@
 						</tr>
 					</tbody>
 				</table>
-				<c:if test="${user.getId()==sessionScope.idUser}">
-					<a href="#" class="btn btn-block btn-dark">Enchérir</a>
-				</c:if>
+				<form method = "POST">
+					<c:if test="${user.getId()==sessionScope.idUser}">
+						<a href="#" class="btn btn-block btn-dark">Enchérir</a>
+					</c:if>
+				</form>
 				<p>
 					<input type = "number" name = "encherir" min = ${enchere.getMontant_enchere() } max = "1548485485484848484" step ="1">
 				</p>
