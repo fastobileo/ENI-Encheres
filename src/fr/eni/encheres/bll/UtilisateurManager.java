@@ -67,4 +67,12 @@ public class UtilisateurManager {
 		return null;
 
 	}
+
+	public void update(Utilisateur user) throws BusinessException {
+		try {
+			utilisateurDAO.update(user);
+		} catch (Exception e) {
+			throw new BusinessException();
+		}
+	}
 }

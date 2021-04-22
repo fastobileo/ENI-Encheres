@@ -20,7 +20,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	private final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 
-	private final String UPDATE = "UPDATE UTILISATEURS set pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ? WHERE no_utilisateur = ?";
+	private final String UPDATE = "UPDATE UTILISATEURS set pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?";
 
 	private final String GET_PASSWORD = "SELECT no_utilisateur from UTILISATEURS WHERE pseudo = ? AND mot_de_passe = ?";
 
@@ -141,7 +141,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			ps.setString(7, utilisateur.getCode_postal());
 			ps.setString(8, utilisateur.getVille());
 			ps.setString(9, utilisateur.getMot_de_passe());
-			ps.setInt(10, utilisateur.getCredit());
+			ps.setInt(10, utilisateur.getId());
 
 			ps.executeUpdate();
 

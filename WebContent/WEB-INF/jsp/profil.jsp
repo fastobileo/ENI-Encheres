@@ -43,10 +43,6 @@
 							<td>${user.getEmail()}</td>
 						</tr>
 						<tr>
-							<th scope="row">Prénom</th>
-							<td>${user.getPrenom()}</td>
-						</tr>
-						<tr>
 							<th scope="row">Téléphone</th>
 							<td>${user.getTelephone()}</td>
 						</tr>
@@ -58,7 +54,7 @@
 					</tbody>
 				</table>
 				<c:if test="${user.getId()==sessionScope.idUser}">
-					<a href="#" class="btn btn-block btn-dark">Modifier</a>
+					<a href="${pageContext.servletContext.contextPath}/modifierProfil?id=${sessionScope.idUser}" class="btn btn-block btn-dark">Modifier</a>
 				</c:if>
 			</c:otherwise>
 		</c:choose>

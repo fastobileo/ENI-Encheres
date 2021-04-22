@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.encheres.bll.UtilisateurManager;
+import fr.eni.encheres.bo.BusinessException;
 import fr.eni.encheres.bo.Utilisateur;
 
 /**
@@ -55,6 +56,21 @@ public class ModifierProfilServlet extends HttpServlet {
 		Utilisateur user = new Utilisateur();
 		user.setId(id);
 		user.setNom(request.getParameter("Nom"));
+		user.setPrenom(request.getParameter("Prenom"));
+		user.setAdministrateur(false);
+		user.setCode_postal(request.getParameter("cp"));
+		user.setEmail(request.getParameter("Email"));
+		user.setMot_de_passe(request.getParameter("mdp"));
+		user.setPseudo(request.getParameter("Pseudo"));
+		user.setRue(request.getParameter("Rue"));
+		user.setTelephone(request.getParameter("tel"));
+		user.setVille(request.getParameter("Ville"));
+		System.out.println(user.toString());
+		try {
+			utilisateurManager.update(user);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
 
 		response.sendRedirect(request.getContextPath() + "/AfficherProfil?id=" + id);
 
