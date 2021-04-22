@@ -13,10 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.encheres.bll.ArticleManager;
-import fr.eni.encheres.servlets.CodesResultatServlets;
-import fr.eni.encheres.servlets.HttpSession;
-import fr.eni.encheres.servlets.RequestDispatcher;
+import fr.eni.encheres.bo.Article;
+import fr.eni.encheres.bo.BusinessException;
+import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Retrait;
+import fr.eni.encheres.bo.Utilisateur;
 
+/**
+ * Servlet implementation class ConnectionPageServlet
+ */
+@WebServlet("/Vendre")
 public class VendreArticleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ATTRIBUT_UTILISATEUR_CONNECTE = "utilisateurConnecte";
@@ -30,7 +36,7 @@ public class VendreArticleServlet extends HttpServlet {
 	private static final String PARAM_CATEGORIE_CHOISIE = "categorieChoisie";
 	private static final String DESCRIPTION = "description";
 	private static final String NOM_ARTICLE = "nomArticle";
-	private static final String URL_VENTE = "/VenteArticle";
+	private static final String URL_VENTE = "/Vendre";
 	private static final String URL_ACCUEIL = "/Accueil";
 	
 
@@ -39,15 +45,18 @@ public class VendreArticleServlet extends HttpServlet {
 		
 	}
 	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		request.getRequestDispatcher("/WEB-INF/jsp/vendreArticle.jsp").forward(request, response);
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
 
 		// Variables
-		RequestDispatcher dispatcher = null;
 		List<Integer> listeCodesErreur = new ArrayList<>();
-		HttpSession session = request.getSession();
 		ArticleManager ArticleManager = new ArticleManager();
 
 		String nomArticle = request.getParameter(NOM_ARTICLE);
@@ -89,6 +98,39 @@ public class VendreArticleServlet extends HttpServlet {
 				listeCodesErreur.add(ResultErreurServlets.VIDE_ARTICLE_DATE_FIN_ENCHERES_ERREUR);
 			}
 		}
+		
+		Article articleAInserer = new Article();
+			
+				
+		Categorie categorieAInserer = new Categorie();
+		ArticleManager articleManager = new ArticleManager();
+		List<Categorie> listeCategorie;
+		
+		Utilisateur vendeur; // = (Utilisateur) session.getAttribute(ATTRIBUT_UTILISATEUR_CONNECTE);
+		
+		
+//		articleAInserer = new Article();
+//		articleAInserer.setPrix_initial(prixInitial);
+//		Retrait retrait = new Retrait(rue,codePostal,ville);
+//		articleAInserer.setRetrait(retrait);
+//		articleAInserer.setPrixVente(prixInitial);
+//
+//		//Appel de la BLL pour ajouter l'article
+//		try {
+//			articleManager.ajouterArticle(articleAInserer);
+//		// Si tout s'est bien passé, retourne à la page d'accueil
+//		session.setAttribute(ATTRIBUT_ARTICLE_A_INSERER, articleAInserer);
+//		dispatcher = request.getRequestDispatcher(URL_ACCUEIL);
+//		dispatcher.forward(request, response);
+//		
+//		
+//		} catch (BusinessException be) {
+//		
+//	
+//		be.printStackTrace();
+//		ServletTools.afficherErreurs(request, response, be.getListeCodesErreur(), URL_VENTE);
+//	}
+				
 	}
 
 }

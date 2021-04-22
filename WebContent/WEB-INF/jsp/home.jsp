@@ -34,6 +34,9 @@
 			<div class="col-md-4 col-sm-12">
 				<a class="btn btn-primary btn-block">rechercher</a>
 			</div>
+			<div class="col-md-4 col-sm-12">
+				<a class="btn btn-primary btn-block" href="${pageContext.servletContext.contextPath}/Vendre">Vendre un article</a>
+			</div>
 			<br>
 		</div>
 		<div class="row">
