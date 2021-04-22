@@ -17,7 +17,7 @@ public class EnchereManager {
 	}
 
 	public Enchere afficherEnchereById(int id) throws BusinessException {
-		Enchere enchere = null;
+		Enchere enchere = new Enchere();
 		try {
 			enchere = enchereDAO.findById(id);
 		} catch (DALException e) {			
@@ -46,6 +46,18 @@ public class EnchereManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public Enchere getEnchereInnerJoin(int no_enchere) throws BusinessException {
+		
+		Enchere enchere = new Enchere();
+		
+		try {
+			enchereDAO.getEnchereInnerJoin(no_enchere);		
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		return enchere;
 	}
 	
 }

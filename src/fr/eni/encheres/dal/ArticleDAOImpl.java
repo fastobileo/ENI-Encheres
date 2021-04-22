@@ -22,7 +22,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 	private final String DELETE = "DELETE FROM ARTICLES_VENDUS WHERE no_article=?";
 	
 	private final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article = ?, description = ?, date_debut_encheres = ?, date_fin_encheres = ?, prix_initial = ?, prix_vente = ?, no_utilisateur = ?, no_categorie = ?, no_retrait = ? WHERE no_article = ?";
-	
+		
 	@Override
 public void add(Article article) throws DALException {
 		
