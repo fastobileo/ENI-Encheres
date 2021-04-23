@@ -40,6 +40,7 @@ public class ConnectionPageServlet extends HttpServlet {
 			request.setAttribute("user", user);
 			HttpSession session = request.getSession();
 			session.setAttribute("idUser", user.getId());
+			session.setAttribute("user", (Utilisateur) userManager.afficherUtilisateur(user.getId()));
 			response.sendRedirect(request.getContextPath() + "/");
 		} catch (BusinessException e) {
 			request.setAttribute("errorMessage", "impossible de se connecter");

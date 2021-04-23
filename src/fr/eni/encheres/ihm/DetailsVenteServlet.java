@@ -29,8 +29,7 @@ public class DetailsVenteServlet extends HttpServlet {
 
 		try {
 			id_enchere = Integer.parseInt(request.getParameter("id_enchere"));
-
-			if (enchere.getArticle().getNo_article() < 0) {
+			if (id_enchere < 0) {
 				throw new Exception();
 			}
 			enchere = enchereManager.getEnchereInnerJoin(id_enchere);
@@ -45,6 +44,11 @@ public class DetailsVenteServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String id = request.getParameter("idEnchere");
+		String enchere = request.getParameter("enchere");
+		System.out.println(id);
+		System.out.println(enchere);
+
 		doGet(request, response);
 	}
 

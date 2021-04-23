@@ -3,15 +3,15 @@ package fr.eni.encheres.bo;
 import java.util.Date;
 
 public class Enchere {
-	
+
 	private int no_enchere;
 	private Date date_enchere;
 	private int montant_enchere;
 	private Article article;
 	private Utilisateur utilisateur;
-	
-	public Enchere(int no_enchere, Date date_enchere, int montant_enchere, Article article,
-			Utilisateur utilisateur) {
+	private Retrait retrait;
+
+	public Enchere(int no_enchere, Date date_enchere, int montant_enchere, Article article, Utilisateur utilisateur) {
 		super();
 		this.no_enchere = no_enchere;
 		this.date_enchere = date_enchere;
@@ -63,4 +63,20 @@ public class Enchere {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
+
+	@Override
+	public String toString() {
+		return "Enchere [no_enchere=" + no_enchere + ", date_enchere=" + date_enchere + ", montant_enchere="
+				+ montant_enchere + ", article=" + article + ", utilisateur=" + utilisateur + ", retrait=" + retrait
+				+ "]";
+	}
+
 }
