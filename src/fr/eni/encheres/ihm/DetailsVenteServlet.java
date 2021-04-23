@@ -1,6 +1,7 @@
 package fr.eni.encheres.ihm;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,20 +16,20 @@ public class DetailsVenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private EnchereManager enchereManager;
-	
-    public DetailsVenteServlet() {
-    	enchereManager = new EnchereManager();
-    }
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+	public DetailsVenteServlet() {
+		enchereManager = new EnchereManager();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		Enchere enchere = null;
 		Integer id_enchere = null;
-		
+
 		try {
 			id_enchere = Integer.parseInt(request.getParameter("id_enchere"));
-		
-			if (enchere.getArticle().getNo_article() < 0) {
+			if (id_enchere < 0) {
 				throw new Exception();
 			}
 			enchere = enchereManager.getEnchereInnerJoin(id_enchere);
@@ -37,11 +38,17 @@ public class DetailsVenteServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("enchere", enchere);
-		
+
 		request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp").forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String id = request.getParameter("idEnchere");
+		String enchere = request.getParameter("enchere");
+		System.out.println(id);
+		System.out.println(enchere);
+
 		doGet(request, response);
 	}
 

@@ -39,6 +39,9 @@
 			</div>
 			<br>
 		</div>
+		
+		<c:forEach var= "enchere" items= "${listeEnchere}">
+		
 		<div class="row">
 			<h1>Annonces :</h1>
 			<div class="card mb-3" style="max-width: 540px">
@@ -50,10 +53,10 @@
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
-							<h5 class="card-title">PC gamer pour travailler</h5>
-							<p class="card-text">prix : 2010p</p>
-							<p class="card-text">fin de l'enchère : 20/10/2021</p>
-							<p class="card-text">vendeur : test</p>
+							<h5 class="card-title">${enchere.getArticle().getNom_article()}</h5>
+							<p class="card-text">Prix : ${enchere.getEnchere().getMontant_enchere()}</p>
+							<p class="card-text">Fin de l'enchère : ${enchere.getArticle().getDate_fin_encheres()}</p>
+							<p class="card-text">Vendeur : ${enchere.getUtilisateur().getPseudo()}</p>
 							<div class="text-center">
 								<a href="#!" class="btn btn-primary">En savoir plus</a>
 							</div>
@@ -63,7 +66,7 @@
 			</div>
 		</div>
 
-
+	</c:forEach>
 
 	</div>
 

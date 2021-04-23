@@ -39,8 +39,8 @@
 							for="cp">Code postal</label>
 					</div>
 					<div class="form-outline mb-4">
-						<input required type="text" name="mdp" id="mdp"
-							class="form-control" value="${user.getMot_de_passe()}" /> <label
+						<input required type="password" name="mdp" id="mdp"
+							class="form-control" value="${user.getMot_de_passe()}" type="password" /> <label
 							class="form-label" for="mdp">Mot de passe</label>
 					</div>
 				</div>
@@ -67,8 +67,8 @@
 							class="form-label" for="Ville">Ville</label>
 					</div>
 					<div class="form-outline mb-4">
-						<input required type="text" name="Confirmation" id="Confirmation"
-							class="form-control" value="${user.getMot_de_passe()}" /> <label
+						<input required type="password" name="Confirmation" id="Confirmation"
+							class="form-control" value="${user.getMot_de_passe()}"/> <label
 							class="form-label" for="Confirmation">Confirmation</label>
 					</div>
 				</div>

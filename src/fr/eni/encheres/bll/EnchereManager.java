@@ -25,26 +25,26 @@ public class EnchereManager {
 		Enchere enchere = new Enchere();
 		try {
 			enchere = enchereDAO.findById(id);
-		} catch (DALException e) {			
+		} catch (DALException e) {
 			e.printStackTrace();
 		}
-		return enchere;		
+		return enchere;
 	}
-	
+
 	public List<Enchere> afficherToutesLesEncheres() throws BusinessException {
-		
+
 		List<Enchere> listeEnchere = new ArrayList<Enchere>();
-		
+
 		try {
 			listeEnchere = enchereDAO.findAll();
-		} catch (DALException e) {			
+		} catch (DALException e) {
 			e.printStackTrace();
 		}
-		return listeEnchere;		
+		return listeEnchere;
 	}
-	
+
 	public void ajoutEnchere(Enchere enchere) throws BusinessException {
-		
+
 		try {
 			enchereDAO.add(enchere);
 		} catch (DALException e) {
@@ -52,13 +52,12 @@ public class EnchereManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public Enchere getEnchereInnerJoin(int no_enchere) throws BusinessException {
-		
-		Enchere enchere = new Enchere();
-		
+
+	public Enchere getEnchereInnerJoin(Integer no_enchere) throws BusinessException {
+
+		Enchere enchere = null;
 		try {
-			enchereDAO.getEnchereInnerJoin(no_enchere);		
+			enchere = enchereDAO.getEnchereInnerJoin(no_enchere);
 		} catch (DALException e) {
 			e.printStackTrace();
 		}

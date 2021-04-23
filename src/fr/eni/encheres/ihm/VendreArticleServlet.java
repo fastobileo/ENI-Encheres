@@ -1,8 +1,9 @@
 package fr.eni.encheres.ihm;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import fr.eni.encheres.bll.ArticleManager;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.BusinessException;
 import fr.eni.encheres.bo.Categorie;
@@ -24,9 +25,9 @@ import fr.eni.encheres.bo.Utilisateur;
  */
 @WebServlet("/Vendre")
 public class VendreArticleServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
-	private static final String ATTRIBUT_UTILISATEUR_CONNECTE = "utilisateurConnecte";
-	private static final String ATTRIBUT_ARTICLE_A_INSERER = "articleAInserer";
+
 	private static final String VILLE = "ville";
 	private static final String CODE_POSTAL = "codePostal";
 	private static final String RUE = "rue";
@@ -37,100 +38,80 @@ public class VendreArticleServlet extends HttpServlet {
 	private static final String DESCRIPTION = "description";
 	private static final String NOM_ARTICLE = "nomArticle";
 	private static final String URL_VENTE = "/Vendre";
-	private static final String URL_ACCUEIL = "/Accueil";
-	
 
 	public void init() throws ServletException {
 		super.init();
-		
+
 	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/jsp/vendreArticle.jsp").forward(request, response);
-	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+
+	@SuppressWarnings("null")
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		try {
+			HttpSession session = request.getSession();
+			Integer idUser = (Integer) session.getAttribute("idUser");
+			if(idUser == null) {
+				request.setAttribute("errorMessage", "Il faut se connecter pour vendre un article");
+				request.getRequestDispatcher("/WEB-INF/jsp/connection.jsp").forward(request, response);
+			}
+		} catch (Exception e) {
+			request.setAttribute("errorMessage", "Il faut se connecter pour vendre un article");
+		}
+		request.getRequestDispatcher("/WEB-INF/jsp/vendreArticle.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
 
-		// Variables
 		List<Integer> listeCodesErreur = new ArrayList<>();
-		ArticleManager ArticleManager = new ArticleManager();
+		Article article = new Article();
+		Retrait retrait = new Retrait();
 
 		String nomArticle = request.getParameter(NOM_ARTICLE);
 		String description = request.getParameter(DESCRIPTION);
-		String sPrixInitial = request.getParameter(PRIX_INITIAL);
+		Integer prixInitial = Integer.parseInt(request.getParameter(PRIX_INITIAL));
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		
+		try {
+			Date dateDebutEncheres;
+			Date dateFinEncheres;
+			
+			dateDebutEncheres = simpleDateFormat.parse(request.getParameter(DATE_DEBUT_ENCHERES));
+			dateFinEncheres = simpleDateFormat.parse(request.getParameter(DATE_FIN_ENCHERES));
+			
+			article.setDate_debut_encheres(dateDebutEncheres);
+			article.setDate_fin_encheres(dateFinEncheres);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+
 		String rue = request.getParameter(RUE);
 		String codePostal = request.getParameter(CODE_POSTAL);
 		String ville = request.getParameter(VILLE);
-		String sDateDebutEncheres = request.getParameter(DATE_DEBUT_ENCHERES);
-		String sDateFinEncheres = request.getParameter(DATE_FIN_ENCHERES);
 
 		String categorieChoisie = request.getParameter(PARAM_CATEGORIE_CHOISIE);
 
-		Integer prixInitial = 0;
-		try {
-			prixInitial = Integer.valueOf(sPrixInitial);
-		} catch (NumberFormatException nfe) {
-			nfe.printStackTrace();
-		}
+		article.setNom_article(nomArticle);
+		article.setDescription(description);
+		article.setPrix_initial(prixInitial);
+	
 
+		retrait.setRue(rue);
+		retrait.setCode_postal(codePostal);
+		retrait.setVille(ville);
+		
 
-		LocalDateTime dateDebutEncheres = null;
-		if (sDateDebutEncheres != "") {
-			try {
-				dateDebutEncheres = LocalDateTime.parse((sDateDebutEncheres));
-			} catch (DateTimeParseException dtpe) {
-				dtpe.printStackTrace();
-				listeCodesErreur.add(ResultErreurServlets.VIDE_ARTICLE_DATE_DEBUT_ENCHERES_ERREUR);
-			}
-		} 
-		
-		
-		LocalDateTime dateFinEncheres = null;
-		if (sDateFinEncheres != "") {
-			try {
-				dateFinEncheres = LocalDateTime.parse((sDateFinEncheres));
-			} catch (DateTimeParseException dtpe) {
-				dtpe.printStackTrace();
-				listeCodesErreur.add(ResultErreurServlets.VIDE_ARTICLE_DATE_FIN_ENCHERES_ERREUR);
-			}
-		}
-		
-		Article articleAInserer = new Article();
-			
-				
-		Categorie categorieAInserer = new Categorie();
-		ArticleManager articleManager = new ArticleManager();
-		List<Categorie> listeCategorie;
-		
-		Utilisateur vendeur; // = (Utilisateur) session.getAttribute(ATTRIBUT_UTILISATEUR_CONNECTE);
-		
-		
-//		articleAInserer = new Article();
-//		articleAInserer.setPrix_initial(prixInitial);
-//		Retrait retrait = new Retrait(rue,codePostal,ville);
-//		articleAInserer.setRetrait(retrait);
-//		articleAInserer.setPrixVente(prixInitial);
-//
-//		//Appel de la BLL pour ajouter l'article
-//		try {
-//			articleManager.ajouterArticle(articleAInserer);
-//		// Si tout s'est bien passé, retourne à la page d'accueil
-//		session.setAttribute(ATTRIBUT_ARTICLE_A_INSERER, articleAInserer);
-//		dispatcher = request.getRequestDispatcher(URL_ACCUEIL);
-//		dispatcher.forward(request, response);
-//		
-//		
-//		} catch (BusinessException be) {
-//		
-//	
-//		be.printStackTrace();
-//		ServletTools.afficherErreurs(request, response, be.getListeCodesErreur(), URL_VENTE);
-//	}
-				
+		response.sendRedirect(request.getContextPath());
+
 	}
 
 }

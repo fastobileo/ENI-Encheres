@@ -6,7 +6,7 @@ public class Retrait {
 	private String rue;
 	private String code_postal;
 	private String ville;
-	
+
 	public Retrait(int id, String rue, String code_postal, String ville) {
 		super();
 		this.id = id;
@@ -16,7 +16,7 @@ public class Retrait {
 	}
 
 	// modification test
-	
+
 	public Retrait() {
 		super();
 	}
@@ -51,5 +51,10 @@ public class Retrait {
 
 	public void setVille(String ville) {
 		this.ville = ville;
+	}
+
+	@Override
+	public String toString() {
+		return "Retrait [id=" + id + ", rue=" + rue + ", code_postal=" + code_postal + ", ville=" + ville + "]";
 	}
 }
