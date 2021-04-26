@@ -1,1 +1,5 @@
 # ENI-Encheres
+
+MARCHANDISE Quentin
+DJENANNE Théo
+DE LA ROCHE Léo
