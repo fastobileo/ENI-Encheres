@@ -21,11 +21,11 @@
 				</div>
 				<br>
 				<div class="dropdown">
-					<h6>catégories :</h6>
+					<h6>Catégories :</h6>
 					<select class="form-select" aria-label="Default select example">
-						<option selected value="1">Toutes</option>
-						<option value="2">Two</option>
-						<option value="3">Three</option>
+						<c:forEach var="l" items="${listeCategorie}">
+								<option selected value="${ l.getNoCategorie() }">${ l.getLibelle() }</option>
+							</c:forEach>
 					</select>
 				</div>
 				<br>
@@ -57,7 +57,7 @@
 							<p class="card-text">Fin de l'enchère : ${enchere.getArticle().getDate_fin_encheres()}</p>
 							<p class="card-text">Vendeur : ${enchere.getUtilisateur().getPseudo()}</p>
 							<div class="text-center">
-								<a href= "${pageContext.servletContext.contextPath}/detailsVente?id=${enchere.getNo_enchere()}" class="btn btn-primary">En savoir plus</a>
+								<a href= "${pageContext.servletContext.contextPath}/detailsVente?id_enchere=${enchere.getNo_enchere()}" class="btn btn-primary">En savoir plus</a>
 							</div>
 						</div>
 					</div>

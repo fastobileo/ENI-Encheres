@@ -44,7 +44,7 @@ public class DetailsVenteServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String id = request.getParameter("idEnchere");
+		String id = request.getParameter("id_enchere");
 		String enchere = request.getParameter("enchere");
 		System.out.println(id);
 		System.out.println(enchere);
