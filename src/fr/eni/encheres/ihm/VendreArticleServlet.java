@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.encheres.bll.CategorieManager;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.BusinessException;
 import fr.eni.encheres.bo.Categorie;
@@ -37,23 +38,32 @@ public class VendreArticleServlet extends HttpServlet {
 	private static final String PARAM_CATEGORIE_CHOISIE = "categorieChoisie";
 	private static final String DESCRIPTION = "description";
 	private static final String NOM_ARTICLE = "nomArticle";
-	private static final String URL_VENTE = "/Vendre";
 
 	public void init() throws ServletException {
 		super.init();
 
 	}
 
-	@SuppressWarnings("null")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		CategorieManager categorieManager = new CategorieManager();
+		List<Categorie> listeCategorie = null;
+		
 		try {
 			HttpSession session = request.getSession();
-			Integer idUser = (Integer) session.getAttribute("idUser");
-			if(idUser == null) {
+			Integer IdUser = (Integer) session.getAttribute("idUser");
+			Utilisateur user = (Utilisateur) session.getAttribute("user");
+			if(IdUser == null) {
 				request.setAttribute("errorMessage", "Il faut se connecter pour vendre un article");
 				request.getRequestDispatcher("/WEB-INF/jsp/connection.jsp").forward(request, response);
+			}else{
+				
+				request.setAttribute("user", user);
+				listeCategorie = categorieManager.afficherToutesLesCategories();
+
+				request.setAttribute("listeCategorie", listeCategorie);
+				
 			}
 		} catch (Exception e) {
 			request.setAttribute("errorMessage", "Il faut se connecter pour vendre un article");
@@ -73,10 +83,15 @@ public class VendreArticleServlet extends HttpServlet {
 		List<Integer> listeCodesErreur = new ArrayList<>();
 		Article article = new Article();
 		Retrait retrait = new Retrait();
+		Categorie categorie = new Categorie();
 
 		String nomArticle = request.getParameter(NOM_ARTICLE);
 		String description = request.getParameter(DESCRIPTION);
 		Integer prixInitial = Integer.parseInt(request.getParameter(PRIX_INITIAL));
+		
+		article.setNom_article(nomArticle);
+		article.setDescription(description);
+		article.setPrix_initial(prixInitial);
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		
@@ -97,19 +112,13 @@ public class VendreArticleServlet extends HttpServlet {
 		String rue = request.getParameter(RUE);
 		String codePostal = request.getParameter(CODE_POSTAL);
 		String ville = request.getParameter(VILLE);
-
-		String categorieChoisie = request.getParameter(PARAM_CATEGORIE_CHOISIE);
-
-		article.setNom_article(nomArticle);
-		article.setDescription(description);
-		article.setPrix_initial(prixInitial);
-	
-
+		
 		retrait.setRue(rue);
 		retrait.setCode_postal(codePostal);
 		retrait.setVille(ville);
 		
-
+		String categorieChoisie = request.getParameter(PARAM_CATEGORIE_CHOISIE);	
+		
 		response.sendRedirect(request.getContextPath());
 
 	}
