@@ -45,6 +45,9 @@ public class UtilisateurManager {
 
 		try {
 			utilisateurDAO.add(utilisateur);
+			
+			System.out.println("test");
+			
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
@@ -74,5 +77,27 @@ public class UtilisateurManager {
 		} catch (Exception e) {
 			throw new BusinessException();
 		}
+	}
+	
+	public boolean checkingPassword(String mdp, String mdpConfirme) throws BusinessException {
+		
+		boolean mdpIdentique = false;
+		
+		if (mdp.equals(mdpConfirme)) {
+			
+			mdpIdentique = true;
+		}
+		
+		return mdpIdentique;
+		
+	}
+	
+	public void delete(Utilisateur utilisateur) throws BusinessException {
+		
+		try {
+			utilisateurDAO.delete(utilisateur);
+		} catch (Exception e) {
+			throw new BusinessException();
+		} 
 	}
 }

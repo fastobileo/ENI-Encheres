@@ -14,7 +14,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	private final String FIND_BY_ID = "select no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where no_utilisateur = ?";
 
-	private final String INSERT = "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit) values (?,?,?,?,?,?,?,?,?,?)";
+	private final String INSERT = "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values (?,?,?,?,?,?,?,?,?,?,?)";
 
 	private final String FIND_ALL = "select no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS";
 
@@ -41,7 +41,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			ps.setString(8, utilisateur.getVille());
 			ps.setString(9, utilisateur.getMot_de_passe());
 			ps.setInt(10, utilisateur.getCredit());
+			ps.setBoolean(11, utilisateur.isAdministrateur());
 
+			System.out.println(utilisateur.toString());
+			
 			ps.executeUpdate();
 
 			ResultSet rs = ps.getGeneratedKeys();

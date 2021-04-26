@@ -17,4 +17,8 @@ public class DAOFactory {
 	public static RetraitDAO getRetraitDAO() {
 		return new RetraitDAOImpl();
 	}
+	
+	public static CategorieDAO getCategorieDA() {
+		return new CategorieDAOImpl();
+	}
 }

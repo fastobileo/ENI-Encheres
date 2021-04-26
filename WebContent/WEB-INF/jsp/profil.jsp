@@ -51,6 +51,10 @@
 							<td>${user.getRue()},${user.getCode_postal()},
 								${user.getVille()}</td>
 						</tr>
+						<tr>
+							<th scope="row">Crédits</th>
+							<td>${user.getCredit()}</td>
+						</tr>
 					</tbody>
 				</table>
 				<c:if test="${user.getId()==sessionScope.idUser}">

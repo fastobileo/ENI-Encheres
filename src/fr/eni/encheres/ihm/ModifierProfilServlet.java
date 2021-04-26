@@ -64,7 +64,6 @@ public class ModifierProfilServlet extends HttpServlet {
 		user.setRue(request.getParameter("Rue"));
 		user.setTelephone(request.getParameter("tel"));
 		user.setVille(request.getParameter("Ville"));
-		System.out.println(user.toString());
 		try {
 			utilisateurManager.update(user);
 		} catch (BusinessException e) {
