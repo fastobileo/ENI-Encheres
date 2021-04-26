@@ -77,7 +77,7 @@
 		<input name="id" value="${user.getId()}" hidden>
 		<div class="text-center">
 			<button type="submit" class="btn">Enregistrer</button>
-			<a class="btn">Supprimer mon compte</a>
+			<a class="btn" type="submit" href = "suppression?id=${user.getId()}">Supprimer mon compte</a>
 		</div>
 	</form>
 	<jsp:include page="foot.jsp" />

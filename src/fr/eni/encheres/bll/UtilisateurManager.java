@@ -91,4 +91,13 @@ public class UtilisateurManager {
 		return mdpIdentique;
 		
 	}
+	
+	public void delete(Utilisateur utilisateur) throws BusinessException {
+		
+		try {
+			utilisateurDAO.delete(utilisateur);
+		} catch (Exception e) {
+			throw new BusinessException();
+		} 
+	}
 }
