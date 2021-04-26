@@ -1,6 +1,11 @@
 package fr.eni.encheres.bll;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import fr.eni.encheres.bo.BusinessException;
@@ -58,5 +63,36 @@ public class EnchereManager {
 		}
 		return enchere;
 	}
-
+	    
+	public boolean verifEnchere(Enchere enchere, int enchereProposee) throws BusinessException{
+		
+		boolean enchereAcceptee = false;
+		
+		ChronoLocalDate chronoLocalDate = asChronoLocalDate(asLocalDate(enchere.getArticle().getDate_fin_encheres()));
+		
+		if (LocalDate.now().isBefore(chronoLocalDate) && enchereProposee > enchere.getMontant_enchere()) {
+			enchereAcceptee = true;
+		}		
+		return enchereAcceptee;		
+	}
+	
+	public int acceptationEnchere (Enchere enchere, int enchereProposee)  throws BusinessException{
+		
+		int enchereEnvoyee = 0;
+		
+		if (verifEnchere(enchere, enchereProposee)) {
+			enchereEnvoyee = enchereProposee;
+		} else {
+			enchereEnvoyee = enchere.getMontant_enchere();
+		}		
+		return enchereEnvoyee;
+	}
+	
+	public static ChronoLocalDate asChronoLocalDate(LocalDate date) {
+	    return ChronoLocalDate.from(((LocalDate) date).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+	}
+	
+	public static LocalDate asLocalDate(Date date) {
+	    return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+	  }	
 }

@@ -39,7 +39,6 @@ public class ModifierProfilServlet extends HttpServlet {
 			utilisateur = utilisateurManager.afficherUtilisateur(id);
 		} catch (Exception e) {
 			request.setAttribute("errorMessage", "l'utilisateur n'est pas disponible");
-
 			e.printStackTrace();
 		}
 		request.setAttribute("user", utilisateur);
