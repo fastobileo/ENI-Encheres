@@ -43,6 +43,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			ps.setInt(10, utilisateur.getCredit());
 			ps.setBoolean(11, utilisateur.isAdministrateur());
 
+			System.out.println(utilisateur.toString());
+			
 			ps.executeUpdate();
 
 			ResultSet rs = ps.getGeneratedKeys();

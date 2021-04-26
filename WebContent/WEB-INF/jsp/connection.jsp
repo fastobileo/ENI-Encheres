@@ -44,7 +44,7 @@
 			<button type="submit" class="btn btn-primary btn-block">Se
 				connecter</button>
 		</form>
-		<br> <a class="btn btn-dark btn-block" href ="${pageContext.servletContext.contextPath}/creationCompte"/>Créer un compte</a>
+		<br> <a class="btn btn-dark btn-block" href ="${pageContext.servletContext.contextPath}/creationCompte">Créer un compte</a>
 	</div>
 	<jsp:include page="foot.jsp" />
 </body>

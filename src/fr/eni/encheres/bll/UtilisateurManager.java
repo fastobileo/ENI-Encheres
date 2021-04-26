@@ -45,6 +45,9 @@ public class UtilisateurManager {
 
 		try {
 			utilisateurDAO.add(utilisateur);
+			
+			System.out.println("test");
+			
 		} catch (DALException e) {
 			e.printStackTrace();
 		}

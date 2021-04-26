@@ -68,7 +68,7 @@
 		
 		<div class = "text-center">
 		<div class="col-md-12 col-sm-12">
-			<a type="submit" class="btn btn-primary btn-block" href ="${pageContext.servletContext.contextPath}/connection">Créer</a>
+			<button type="submit" class="btn btn-primary btn-block">Créer</button>
 			<a type="submit" class="btn btn-dark btn-block" href ="${pageContext.servletContext.contextPath}/">Annuler</a>
 		</div>
 		
