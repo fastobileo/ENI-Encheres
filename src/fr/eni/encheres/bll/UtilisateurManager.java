@@ -75,4 +75,17 @@ public class UtilisateurManager {
 			throw new BusinessException();
 		}
 	}
+	
+	public boolean checkingPassword(String mdp, String mdpConfirme) throws BusinessException {
+		
+		boolean mdpIdentique = false;
+		
+		if (mdp.equals(mdpConfirme)) {
+			
+			mdpIdentique = true;
+		}
+		
+		return mdpIdentique;
+		
+	}
 }

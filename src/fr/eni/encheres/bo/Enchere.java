@@ -24,6 +24,12 @@ public class Enchere {
 		super();
 	}
 
+	public Enchere(Article article, Utilisateur utilisateur) {
+		super();
+		this.article = article;
+		this.utilisateur = utilisateur;
+	}
+	
 	public int getNo_enchere() {
 		return no_enchere;
 	}
@@ -78,5 +84,7 @@ public class Enchere {
 				+ montant_enchere + ", article=" + article + ", utilisateur=" + utilisateur + ", retrait=" + retrait
 				+ "]";
 	}
+	
+	
 
 }

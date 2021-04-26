@@ -20,7 +20,7 @@ import fr.eni.encheres.bo.Enchere;
 public class HomePageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private EnchereManager enchereManager;
+	private EnchereManager enchereManager = new EnchereManager();
 	
 	public HomePageServlet() {
 		super();
@@ -33,10 +33,13 @@ public class HomePageServlet extends HttpServlet {
 		
 		try {
 			listeEnchere = enchereManager.afficherToutesLesEncheres();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "La liste des enchères n'est pas disponible");
 		}
+		
+		System.out.println(listeEnchere.get(0).toString());
 		
 		request.setAttribute("listeEnchere", listeEnchere);
 		request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);

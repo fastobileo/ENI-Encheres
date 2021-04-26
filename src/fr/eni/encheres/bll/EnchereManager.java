@@ -34,8 +34,8 @@ public class EnchereManager {
 	public List<Enchere> afficherToutesLesEncheres() throws BusinessException {
 
 		List<Enchere> listeEnchere = new ArrayList<Enchere>();
-
 		try {
+			
 			listeEnchere = enchereDAO.findAll();
 		} catch (DALException e) {
 			e.printStackTrace();

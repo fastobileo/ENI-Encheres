@@ -13,43 +13,69 @@
 		<jsp:param name="title" value="Création de votre compte" />
 	</jsp:include>
 	
+	<form action="${pageContext.servletContext.contextPath}/creationCompte"
+			method="post">
+	
 	<h2 class = "text-center"> Créer votre profil </h2>
-	<div class="container">
+	<div class="container" style="max-width: 600px;">
 		<div class ="row">
 			<div class ="col-md-6 col-sm-12">
-				<p>Pseudo : 
-				<input>
-				<p>Prénom : 
-				<input>
-				<p>Téléphone : 
-				<input>
-				<p>Code postal : 
-				<input>
-				<p>Mot de passe : 
-				<input>
-			</div>
+				<div class="form-outline mb-4">
+					<input required type="text" name="pseudo" id="pseudo" class="form-control" /> <label
+					class="form-label" for="form1Example1">Pseudo</label>
+				</div>
+				<div class="form-outline mb-4">
+					<input required type="text" name="prenom" id="prenom" class="form-control" /> <label
+					class="form-label" for="form1Example1">Prenom</label>
+				</div>
+				<div class="form-outline mb-4">
+					<input required type="text" name="telephone" id="telephone" class="form-control" /> <label
+					class="form-label" for="form1Example1">Telephone</label>
+				</div>
+				<div class="form-outline mb-4">
+					<input required type="text" name="code_postal" id="code_postal" class="form-control" /> <label
+					class="form-label" for="form1Example1">Code postal</label>
+				</div>
+				<div class="form-outline mb-4">
+					<input required type="password" name="mot_de_passe" id="mot_de_passe" class="form-control" /> <label
+					class="form-label" for="form1Example1">Mot de passe</label>
+				</div>
+			</div>			
 			
-			<div class = "col-md-6 col-sm-12">
-				<p>Nom : 
-				<input>
-				<p>Email : 
-				<input>
-				<p>Rue : 
-				<input>
-				<p>Ville : 
-				<input>
-				<p>Confirmation : 
-				<input>
+			<div class ="col-md-6 col-sm-12">
+				<div class="form-outline mb-4">
+					<input required type="text" name="nom" id="nom" class="form-control" /> <label
+					class="form-label" for="form1Example1">Nom</label>
+				</div>
+				<div class="form-outline mb-4">
+					<input required type="text" name="email" id="email" class="form-control" /> <label
+					class="form-label" for="form1Example1">Email</label>
+				</div>
+				<div class="form-outline mb-4">
+					<input required type="text" name="rue" id="rue" class="form-control" /> <label
+					class="form-label" for="form1Example1">Rue</label>
+				</div>
+				<div class="form-outline mb-4">
+					<input required type="text" name="ville" id="ville" class="form-control" /> <label
+					class="form-label" for="form1Example1">Ville</label>
+				</div>
+				<div class="form-outline mb-4">
+					<input required type="password" name="mot_de_passe_confirme" id="mot_de_passe_confirme" class="form-control" /> <label
+					class="form-label" for="form1Example1">Confirmation</label>
+				</div>
 			</div>
 		</div>	
-	</div>
-	<div class = "text-center">
-		<div class="col-md-4 col-sm-12">
-			<a class="btn btn-primary btn-block" href="${pageContext.servletContext.contextPath}/AfficherProfil">Créer</a>
+		
+		<div class = "text-center">
+		<div class="col-md-12 col-sm-12">
+			<a type="submit" class="btn btn-primary btn-block" href ="${pageContext.servletContext.contextPath}/connection">Créer</a>
+			<a type="submit" class="btn btn-dark btn-block" href ="${pageContext.servletContext.contextPath}/">Annuler</a>
 		</div>
-	
-		<button>Annuler</button>
+		
 	</div>
+	</div>
+	
+	</form>
 	<jsp:include page="foot.jsp" />
 
 </body>
