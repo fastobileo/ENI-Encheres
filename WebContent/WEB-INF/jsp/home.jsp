@@ -33,6 +33,7 @@
 
 
 			<div class="row">
+			// test
 
 				<div class="col-md-4 col-sm-12" >
 					<input type="radio" id="achats" name="filtre1" value="achat"
