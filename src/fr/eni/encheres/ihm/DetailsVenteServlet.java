@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.encheres.bll.EnchereManager;
+import fr.eni.encheres.bo.BusinessException;
 import fr.eni.encheres.bo.Enchere;
 
 @WebServlet("/detailsVente")
@@ -46,10 +47,18 @@ public class DetailsVenteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String id = request.getParameter("id_enchere");
 		String enchere = request.getParameter("enchere");
-		System.out.println(id);
-		System.out.println(enchere);
-
+		try {
+			enchereManager.encherir(id, enchere);
+		} catch (BusinessException e) {
+			request.setAttribute("errorMessage", "Impossible");
+		}
 		doGet(request, response);
+		// request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp?id_enchere=" +
+		// id).forward(request, response);
+
+		// response.sendRedirect(request.getContextPath() + "/detailsVente?id_enchere="
+		// + id);
+
 	}
 
 }

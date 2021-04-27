@@ -1,5 +1,7 @@
 package fr.eni.encheres.bll;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -63,36 +65,72 @@ public class EnchereManager {
 		}
 		return enchere;
 	}
-	    
-	public boolean verifEnchere(Enchere enchere, int enchereProposee) throws BusinessException{
-		
+
+	public boolean verifEnchere(Enchere enchere, int enchereProposee) throws BusinessException {
+
 		boolean enchereAcceptee = false;
-		
+
 		ChronoLocalDate chronoLocalDate = asChronoLocalDate(asLocalDate(enchere.getArticle().getDate_fin_encheres()));
-		
+
 		if (LocalDate.now().isBefore(chronoLocalDate) && enchereProposee > enchere.getMontant_enchere()) {
 			enchereAcceptee = true;
-		}		
-		return enchereAcceptee;		
+		}
+		return enchereAcceptee;
 	}
-	
-	public int acceptationEnchere (Enchere enchere, int enchereProposee)  throws BusinessException{
-		
-		int enchereEnvoyee = 0;
-		
+
+	public Integer acceptationEnchere(Enchere enchere, Integer enchereProposee) throws BusinessException {
+
+		Integer enchereEnvoyee = 0;
+
 		if (verifEnchere(enchere, enchereProposee)) {
 			enchereEnvoyee = enchereProposee;
 		} else {
 			enchereEnvoyee = enchere.getMontant_enchere();
-		}		
+		}
 		return enchereEnvoyee;
 	}
-	
+
 	public static ChronoLocalDate asChronoLocalDate(LocalDate date) {
-	    return ChronoLocalDate.from(((LocalDate) date).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+		return ChronoLocalDate.from(((LocalDate) date).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 	}
-	
+
 	public static LocalDate asLocalDate(Date date) {
-	    return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-	  }	
+		return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+
+	public void encherir(String idEnchere, String prix) throws BusinessException {
+
+		try {
+			Integer intEnchere = Integer.parseInt(idEnchere);
+			Integer intPrix = Integer.parseInt(prix);
+			Enchere e = enchereDAO.getEnchereInnerJoin(intEnchere);
+			if (compareDate(e.getArticle().getDate_fin_encheres().toString())) {
+				Integer newPrix = intPrix;
+				enchereDAO.encherir(intEnchere, newPrix);
+			} else {
+				throw new BusinessException();
+			}
+
+		} catch (Exception e) {
+			throw new BusinessException();
+		}
+	}
+
+	private Boolean compareDate(String date) throws BusinessException {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd,HH:mm:ss");
+		Date dateActuelle = new Date(System.currentTimeMillis());
+		Date dateChoisie = null;
+		try {
+			dateChoisie = formatter.parse(date + ",23:59:59");
+		} catch (ParseException e) {
+			throw new BusinessException();
+		}
+		System.out.println(dateChoisie);
+		System.out.println(dateActuelle);
+		System.out.println(dateChoisie.compareTo(dateActuelle));
+		if (dateChoisie.compareTo(dateActuelle) >= 0) {
+			return true;
+		}
+		return false;
+	}
 }

@@ -32,6 +32,8 @@ private final String FIND_ALL = "SELECT a.no_article, nom_article, description, 
 
 	private final String UPDATE = "UPDATE ENCHERES set date_enchere = ?, montant_enchere = ?, no_article = ?, no_utilisateur = ? WHERE no_enchere = ?";
 
+	private final String ENCHERIR = "UPDATE ENCHERES set montant_enchere = ? WHERE no_enchere = ?";
+
 	private final String INNER_JOIN = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, c.no_categorie, libelle, no_enchere, date_enchere,\n"
 			+ "montant_enchere, r.no_retrait, r.rue as retraitRue, r.code_postal as retraitCP, r.ville as retraitVille, u.no_utilisateur, pseudo, prenom, nom, email, telephone, u.rue, u.code_postal, u.ville, credit\n"
 			+ "FROM ARTICLES_VENDUS a INNER JOIN ENCHERES e ON a.no_article = e.no_article\n"
@@ -240,6 +242,26 @@ private final String FIND_ALL = "SELECT a.no_article, nom_article, description, 
 		}
 
 		return enchere;
+	}
+
+	public void encherir(Integer idEnchere, Integer prix) throws DALException {
+
+		try (Connection connection = ConnectionProvider.getConnection()) {
+
+			PreparedStatement ps = connection.prepareStatement(ENCHERIR);
+
+			System.out.println(idEnchere);
+			System.out.println(prix);
+
+			ps.setInt(1, prix);
+			ps.setInt(2, idEnchere);
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException(e);
+		}
 	}
 
 }
