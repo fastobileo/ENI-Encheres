@@ -34,7 +34,7 @@
 
 			<div class="row">
 
-				<div class="col-md-4 col-sm-12" class ="btn-groupe">
+				<div class="col-md-4 col-sm-12" >
 					<input type="radio" id="achats" name="filtre1" value="achat"
 						checked> <label for="achat">Achats</label>
 					<div>
