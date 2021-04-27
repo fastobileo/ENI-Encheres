@@ -32,53 +32,56 @@
 			</div>
 
 
-			<div class="row">
-			// test
+			<form method="get">
+				<div class="row">
+					// test
 
-				<div class="col-md-4 col-sm-12" >
-					<input type="radio" id="achats" name="filtre1" value="achat"
-						checked> <label for="achat">Achats</label>
-					<div>
-						<input type="checkbox" id="enchere1" name="filtre2"
-							value="encheres_ouvertes" checked> <label
-							for="encheres_ouvertes">enchères ouvertes</label>
+					<div class="col-md-4 col-sm-12">
+						<input type="radio" id="achats" name="filtre1" value="achat"
+							checked> <label for="achat">Achats</label>
+						<div>
+							<input type="checkbox" id="enchere1" name="open"
+								value="encheres_ouvertes"> <label
+								for="encheres_ouvertes">enchères ouvertes</label>
+						</div>
+						<div>
+							<input type="checkbox" id="enchere2" name="mine"
+								value="${sessionScope.idUser }"> <label
+								for="mes_encheres">mes enchères</label>
+						</div>
+						<div>
+							<input type="checkbox" id="enchere3" name="win"
+								value="${sessionScope.idUser }"> <label
+								for="enchere_remportee">mes enchères remportées</label>
+						</div>
 					</div>
-					<div>
-						<input type="checkbox" id="enchere2" name="filtre2"
-							value="mes_encheres"> <label for="mes_encheres">mes
-							enchères</label>
-					</div>
-					<div>
-						<input type="checkbox" id="enchere3" name="filtre2"
-							value="enchere_remportee"> <label for="enchere_remportee">mes
-							enchères remportées</label>
+					<div class="col-md-4 col-sm-12">
+						<input type="radio" id="ventes" name="filtre1" value="vente">
+						<label for="vente">Mes ventes</label>
+						<div>
+							<input type="checkbox" id="vente1" name="filtre3"
+								value="ventes_encours" > <label
+								for="ventes_encours">mes ventes en cours</label>
+						</div>
+						<div>
+							<input type="checkbox" id="vente2" name="filtre3"
+								value="ventes_non_debutees"> <label
+								for="ventes_non_debutees">ventes non débutées</label>
+						</div>
+						<div>
+							<input type="checkbox" id="vente3" name="filtre3"
+								value="ventes_terminees"> <label for="ventes_terminees">ventes
+								terminées</label>
+						</div>
 					</div>
 				</div>
+
+
+
 				<div class="col-md-4 col-sm-12">
-					<input type="radio" id="ventes" name="filtre1" value="vente">
-					<label for="vente">Mes ventes</label>
-					<div>
-						<input type="checkbox" id="vente1" name="filtre3"
-							value="ventes_encours" checked> <label
-							for="ventes_encours">mes ventes en cours</label>
-					</div>
-					<div>
-						<input type="checkbox" id="vente2" name="filtre3"
-							value="ventes_non_debutees"> <label
-							for="ventes_non_debutees">ventes non débutées</label>
-					</div>
-					<div>
-						<input type="checkbox" id="vente3" name="filtre3"
-							value="ventes_terminees"> <label for="ventes_terminees">ventes
-							terminées</label>
-					</div>
+					<button type="submit" class="btn btn-primary btn-block">rechercher</button>
 				</div>
-			</div>
-
-
-			<div class="col-md-4 col-sm-12">
-				<a class="btn btn-primary btn-block">rechercher</a>
-			</div>
+			</form>
 			<div class="col-md-4 col-sm-12">
 				<a class="btn btn-primary btn-block"
 					href="${pageContext.servletContext.contextPath}/Vendre">Vendre
@@ -86,6 +89,9 @@
 			</div>
 			<br>
 		</div>
+		<c:if test="${ ErrorEnchere!=null}">
+		<p>${ErrorEnchere }</p>
+		</c:if>
 
 		<c:forEach var="enchere" items="${listeEnchere}">
 

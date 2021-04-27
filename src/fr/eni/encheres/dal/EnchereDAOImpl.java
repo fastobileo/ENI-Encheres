@@ -21,7 +21,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 
 	private final String INSERT = "insert into ENCHERES(date_enchere, montant_enchere, no_article, no_utilisateur) values (?,?,?,?)";
 
-private final String FIND_ALL = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, c.no_categorie, libelle, no_enchere, date_enchere,\n"
+	private final String FIND_ALL = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, c.no_categorie, libelle, no_enchere, date_enchere,\n"
 			+ "montant_enchere, r.no_retrait, r.rue as retraitRue, r.code_postal as retraitCP, r.ville as retraitVille, u.no_utilisateur, pseudo, prenom, nom, email, telephone, u.rue, u.code_postal, u.ville, credit\n"
 			+ "FROM ARTICLES_VENDUS a INNER JOIN ENCHERES e ON a.no_article = e.no_article\n"
 			+ "INNER JOIN RETRAITS r ON r.no_retrait = a.no_retrait\n"
@@ -96,14 +96,14 @@ private final String FIND_ALL = "SELECT a.no_article, nom_article, description, 
 	public List<Enchere> findAll() throws DALException {
 
 		List<Enchere> listeEnchere = new ArrayList<Enchere>();
-		
+
 		try (Connection connection = ConnectionProvider.getConnection()) {
 
 			Statement st = connection.createStatement();
 
 			ResultSet rs = st.executeQuery(FIND_ALL);
-			while (rs.next()) {				
-				
+			while (rs.next()) {
+
 				Article article = new Article();
 				Utilisateur utilisateur = new Utilisateur();
 				Retrait retrait = new Retrait();
@@ -141,7 +141,7 @@ private final String FIND_ALL = "SELECT a.no_article, nom_article, description, 
 				enchere.setUtilisateur(utilisateur);
 				enchere.setRetrait(retrait);
 				listeEnchere.add(enchere);
-				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DALException(e);
@@ -234,7 +234,7 @@ private final String FIND_ALL = "SELECT a.no_article, nom_article, description, 
 				enchere.setUtilisateur(utilisateur);
 				enchere.setRetrait(retrait);
 
-				System.out.println(enchere.toString());
+				// System.out.println(enchere.toString());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -249,9 +249,6 @@ private final String FIND_ALL = "SELECT a.no_article, nom_article, description, 
 		try (Connection connection = ConnectionProvider.getConnection()) {
 
 			PreparedStatement ps = connection.prepareStatement(ENCHERIR);
-
-			System.out.println(idEnchere);
-			System.out.println(prix);
 
 			ps.setInt(1, prix);
 			ps.setInt(2, idEnchere);

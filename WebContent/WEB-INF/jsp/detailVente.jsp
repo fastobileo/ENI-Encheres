@@ -19,6 +19,9 @@
 				<div class="alert alert-danger text-center" role="alert">${errorMessage }</div>
 			</c:when>
 			<c:otherwise>
+			<c:if test="${errorMessageEnchere!=null}">
+				<div class="alert alert-danger text-center" role="alert">${errorMessageEnchere }</div>
+			</c:if>
 				<h2 class="text-center">Détails de la vente</h2>
 				<div class="card text-center">
 					<div class="card-body">

@@ -37,7 +37,7 @@ public class EnchereManager {
 
 		List<Enchere> listeEnchere = new ArrayList<Enchere>();
 		try {
-			
+
 			listeEnchere = enchereDAO.findAll();
 		} catch (DALException e) {
 			e.printStackTrace();
@@ -125,12 +125,19 @@ public class EnchereManager {
 		} catch (ParseException e) {
 			throw new BusinessException();
 		}
-		System.out.println(dateChoisie);
-		System.out.println(dateActuelle);
-		System.out.println(dateChoisie.compareTo(dateActuelle));
 		if (dateChoisie.compareTo(dateActuelle) >= 0) {
 			return true;
 		}
 		return false;
+	}
+
+	public List<Enchere> getOpen(List<Enchere> listeEnchere) throws BusinessException {
+		List<Enchere> newList = new ArrayList<Enchere>();
+		for (Enchere enchere : listeEnchere) {
+			if (compareDate(enchere.getArticle().getDate_fin_encheres().toString())) {
+				newList.add(enchere);
+			}
+		}
+		return newList;
 	}
 }
