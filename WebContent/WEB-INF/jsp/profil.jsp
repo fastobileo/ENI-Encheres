@@ -21,7 +21,7 @@
 				<div class="alert alert-danger text-center" role="alert">${errorMessage }</div>
 			</c:when>
 			<c:otherwise>
-				<h2 class="text-center">Information</h2>
+				<h2 class="text-center">Informations</h2>
 
 				<table class="table">
 

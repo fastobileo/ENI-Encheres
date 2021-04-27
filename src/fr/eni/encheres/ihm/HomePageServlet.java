@@ -37,7 +37,7 @@ public class HomePageServlet extends HttpServlet {
 		
 		try {
 			listeEnchere = enchereManager.afficherToutesLesEncheres();
-			listeCategorie = categorieManager.afficherToutesLesCategories();			
+			listeCategorie = categorieManager.afficherToutesLesCategories();	
 			
 		} catch (Exception e) {
 			e.printStackTrace();
