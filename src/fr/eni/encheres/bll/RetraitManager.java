@@ -28,13 +28,15 @@ public class RetraitManager {
 		return retrait;
 	}
 	
-	public void ajoutRetrait(Retrait retrait) throws BusinessException {
-		
+	public Integer ajoutRetrait(Retrait retrait) throws BusinessException {
+		Integer id;
 		try {
-			retraitDAO.add(retrait);
+			id = retraitDAO.add(retrait);
 		} catch (DALException e) {
 			e.printStackTrace();
 			throw new BusinessException();
 		}
+		
+		return id;
 	} 
 }

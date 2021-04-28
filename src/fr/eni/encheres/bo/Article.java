@@ -12,9 +12,11 @@ public class Article {
 	private Categorie categorie; 
 	private Date date_debut_encheres;
 	private Date date_fin_encheres;
+	private Utilisateur utilisateur;
+	private Retrait retrait;
 	
 	public Article(int no_article, String nom_article, String description, int prix_initial, int prix_vente, Categorie categorie,
-			Date date_debut_encheres, Date date_fin_encheres) {
+			Date date_debut_encheres, Date date_fin_encheres, Utilisateur utilisateur, Retrait retrait) {
 		super();
 		this.no_article = no_article;
 		this.nom_article = nom_article;
@@ -24,8 +26,27 @@ public class Article {
 		this.categorie = categorie;
 		this.date_debut_encheres = date_debut_encheres;
 		this.date_fin_encheres = date_fin_encheres;
+		this.utilisateur = utilisateur;
+		this.retrait = retrait;
+		
 	}
 	
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
+
 	public Article() {
 		
 	}

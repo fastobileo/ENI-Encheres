@@ -7,4 +7,6 @@ import fr.eni.encheres.bo.Categorie;
 public interface CategorieDAO {
 	
 	List<Categorie> findAll() throws DALException;
+	
+	Categorie findById(int no_article) throws DALException;
 }

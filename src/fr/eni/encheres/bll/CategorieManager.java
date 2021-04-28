@@ -10,11 +10,11 @@ import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.DAOFactory;
 
 public class CategorieManager {
-	
+
 	private CategorieDAO categorieDAO;
-	
+
 	public List<Categorie> afficherToutesLesCategories() throws BusinessException {
-		categorieDAO = DAOFactory.getCategorieDA();
+		categorieDAO = DAOFactory.getCategorieDAO();
 		List<Categorie> listeCategorie = new ArrayList<Categorie>();
 
 		try {
@@ -23,5 +23,18 @@ public class CategorieManager {
 			e.printStackTrace();
 		}
 		return listeCategorie;
+	}
+
+	public Categorie findById(int no_categorie) throws BusinessException {
+		categorieDAO = DAOFactory.getCategorieDAO();
+		Categorie categorie = new Categorie();
+
+		try {
+			categorie = categorieDAO.findById(no_categorie);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BusinessException();
+		}
+		return categorie;
 	}
 }
