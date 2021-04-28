@@ -31,10 +31,9 @@
 				<br>
 			</div>
 
-
 			<form method="get">
 				<div class="row">
-					// test
+					
 
 					<div class="col-md-4 col-sm-12">
 						<input type="radio" id="achats" name="filtre1" value="achat"
@@ -59,18 +58,18 @@
 						<input type="radio" id="ventes" name="filtre1" value="vente">
 						<label for="vente">Mes ventes</label>
 						<div>
-							<input type="checkbox" id="vente1" name="filtre3"
-								value="ventes_encours" > <label
+							<input type="checkbox" id="vente1" name="VenteEnCours"
+								value="${sessionScope.idUser }" > <label
 								for="ventes_encours">mes ventes en cours</label>
 						</div>
 						<div>
-							<input type="checkbox" id="vente2" name="filtre3"
-								value="ventes_non_debutees"> <label
+							<input type="checkbox" id="vente2" name="VenteNonDebutees"
+								value="${sessionScope.idUser }"> <label
 								for="ventes_non_debutees">ventes non débutées</label>
 						</div>
 						<div>
-							<input type="checkbox" id="vente3" name="filtre3"
-								value="ventes_terminees"> <label for="ventes_terminees">ventes
+							<input type="checkbox" id="vente3" name="VentesTerminees"
+								value="${sessionScope.idUser }"> <label for="ventes_terminees">ventes
 								terminées</label>
 						</div>
 					</div>

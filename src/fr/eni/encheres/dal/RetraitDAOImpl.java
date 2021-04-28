@@ -12,23 +12,22 @@ import fr.eni.encheres.bo.Retrait;
 
 public class RetraitDAOImpl implements RetraitDAO{
 
-	private final String INSERT = "insert into RETRAITS(no_retrait, rue, code_postal, ville) values (?,?,?,?)";
+	private final String INSERT = "insert into RETRAITS(rue, code_postal, ville) values (?,?,?)";
 	
 	private final String FIND_BY_ID = "select no_retrait, rue, code_postal, ville FROM RETRAITS where id = ?";
 	
 	private final String FIND_ALL = "select no_retrait, rue, code_postal, ville FROM RETRAITS";
 
 	@Override
-	public void add(Retrait retrait) throws DALException {
+	public Integer add(Retrait retrait) throws DALException {
 		
 		try(Connection connection = ConnectionProvider.getConnection()) {
 			
 			PreparedStatement ps = connection.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);
 			
-			ps.setInt(1, retrait.getId());
-			ps.setString(2, retrait.getRue());
-			ps.setString(3, retrait.getCode_postal());
-			ps.setString(4, retrait.getVille());	
+			ps.setString(1, retrait.getRue());
+			ps.setString(2, retrait.getCode_postal());
+			ps.setString(3, retrait.getVille());	
 			
 			ps.executeUpdate();
 			
@@ -42,6 +41,7 @@ public class RetraitDAOImpl implements RetraitDAO{
 			e.printStackTrace();
 			throw new DALException(e);
 		}
+		return retrait.getId();
 	}
 
 	@Override
