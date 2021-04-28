@@ -2,10 +2,6 @@ package fr.eni.encheres.bll;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,49 +62,20 @@ public class EnchereManager {
 		return enchere;
 	}
 
-	public boolean verifEnchere(Enchere enchere, int enchereProposee) throws BusinessException {
-
-		boolean enchereAcceptee = false;
-
-		ChronoLocalDate chronoLocalDate = asChronoLocalDate(asLocalDate(enchere.getArticle().getDate_fin_encheres()));
-
-		if (LocalDate.now().isBefore(chronoLocalDate) && enchereProposee > enchere.getMontant_enchere()) {
-			enchereAcceptee = true;
-		}
-		return enchereAcceptee;
-	}
-
-	public Integer acceptationEnchere(Enchere enchere, Integer enchereProposee) throws BusinessException {
-
-		Integer enchereEnvoyee = 0;
-
-		if (verifEnchere(enchere, enchereProposee)) {
-			enchereEnvoyee = enchereProposee;
-		} else {
-			enchereEnvoyee = enchere.getMontant_enchere();
-		}
-		return enchereEnvoyee;
-	}
-
-	public static ChronoLocalDate asChronoLocalDate(LocalDate date) {
-		return ChronoLocalDate.from(((LocalDate) date).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-	}
-
-	public static LocalDate asLocalDate(Date date) {
-		return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-	}
-
-	public void encherir(String idEnchere, String prix) throws BusinessException {
+	public void encherir(String idEnchere, String prix, String newEncherisseur) throws BusinessException {
 
 		try {
 			Integer intEnchere = Integer.parseInt(idEnchere);
 			Integer intPrix = Integer.parseInt(prix);
+			Integer intIdUserDeb = Integer.parseInt(newEncherisseur);
 			Enchere e = enchereDAO.getEnchereInnerJoin(intEnchere);
 			if (compareDate(e.getArticle().getDate_fin_encheres().toString())) {
 				Integer newPrix = intPrix;
-				enchereDAO.encherir(intEnchere, newPrix);
+				enchereDAO.debiter(intIdUserDeb, intPrix);
+				enchereDAO.crediter(e.getDernierEncherisseur().getId(), e.getMontant_enchere());
+				enchereDAO.encherir(intEnchere, newPrix, intIdUserDeb);
 			} else {
-				throw new BusinessException();
+				throw new BusinessException("l'enchere est terminée");
 			}
 
 		} catch (Exception e) {
