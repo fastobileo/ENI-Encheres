@@ -33,8 +33,6 @@
 
 			<form method="get">
 				<div class="row">
-					
-
 					<div class="col-md-4 col-sm-12">
 						<input type="radio" id="achats" name="filtre1" value="achat"
 							checked> <label for="achat">Achats</label>
@@ -59,7 +57,7 @@
 						<label for="vente">Mes ventes</label>
 						<div>
 							<input type="checkbox" id="vente1" name="VenteEnCours"
-								value="${sessionScope.idUser }" > <label
+								value="${sessionScope.idUser }"> <label
 								for="ventes_encours">mes ventes en cours</label>
 						</div>
 						<div>
@@ -69,60 +67,62 @@
 						</div>
 						<div>
 							<input type="checkbox" id="vente3" name="VentesTerminees"
-								value="${sessionScope.idUser }"> <label for="ventes_terminees">ventes
-								terminées</label>
+								value="${sessionScope.idUser }"> <label
+								for="ventes_terminees">ventes terminées</label>
 						</div>
 					</div>
 				</div>
 
 
-
-				<div class="col-md-4 col-sm-12">
-					<button type="submit" class="btn btn-primary btn-block">rechercher</button>
+				<div class="row">
+					<div class="col-md-4 col-sm-12">
+						<button type="submit" class="btn btn-primary btn-block">rechercher</button>
+					</div>
+					<div class="col-md-4 col-sm-12">
+						<a class="btn btn-primary btn-block"
+							href="${pageContext.servletContext.contextPath}/Vendre">Vendre
+							un article</a>
+					</div>
 				</div>
 			</form>
-			<div class="col-md-4 col-sm-12">
-				<a class="btn btn-primary btn-block"
-					href="${pageContext.servletContext.contextPath}/Vendre">Vendre
-					un article</a>
-			</div>
 			<br>
 		</div>
 		<c:if test="${ ErrorEnchere!=null}">
-		<p>${ErrorEnchere }</p>
+			<p>${ErrorEnchere }</p>
 		</c:if>
-
-		<c:forEach var="enchere" items="${listeEnchere}">
-
-			<div class="row">
-				<h4>${enchere.getArticle().getNom_article()}</h4>
-				<div class="card mb-3" style="max-width: 540px">
-					<div class="row g-0">
-						<div class="col-md-4">
-							<img
-								src="https://mdbootstrap.com/wp-content/uploads/2020/06/vertical.jpg"
-								alt="..." class="img-fluid" />
-						</div>
-						<div class="col-md-8">
-							<div class="card-body">
-								<p class="card-text">Prix : ${enchere.getMontant_enchere()}</p>
-								<p class="card-text">Fin de l'enchère :
-									${enchere.getArticle().getDate_fin_encheres()}</p>
-								<p class="card-text">Vendeur :
-									${enchere.getUtilisateur().getPseudo()}</p>
-								<div class="text-center">
-									<a
-										href="${pageContext.servletContext.contextPath}/detailsVente?id_enchere=${enchere.getNo_enchere()}"
-										class="btn btn-primary">En savoir plus</a>
+		<br>
+		<h1 class="">Annonces : </h1>
+		<br>
+		<div class="row">
+			<c:forEach var="enchere" items="${listeEnchere}">
+				<div class="col-md-4 col-sm-12">
+					<div class="card mb-3" style="max-width: 540px">
+					<h4>${enchere.getArticle().getNom_article()}</h4>
+						<div class="row g-0">
+							<div class="col-md-4">
+								<img
+									src="https://mdbootstrap.com/wp-content/uploads/2020/06/vertical.jpg"
+									alt="..." class="img-fluid" />
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<p class="card-text">Prix : ${enchere.getMontant_enchere()}</p>
+									<p class="card-text">Fin de l'enchère :
+										${enchere.getArticle().getDate_fin_encheres()}</p>
+									<p class="card-text">Vendeur :
+										${enchere.getUtilisateur().getPseudo()}</p>
+									<div class="text-center">
+										<a
+											href="${pageContext.servletContext.contextPath}/detailsVente?id_enchere=${enchere.getNo_enchere()}"
+											class="btn btn-primary">En savoir plus</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-
-		</c:forEach>
-
+			</c:forEach>
+		</div>
 	</div>
 
 	<jsp:include page="foot.jsp" />

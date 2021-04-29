@@ -77,9 +77,8 @@ public class EnchereManager {
 			} else {
 				throw new BusinessException("l'enchere est terminée");
 			}
-
 		} catch (Exception e) {
-			throw new BusinessException();
+			throw new BusinessException(e.getMessage());
 		}
 	}
 
@@ -97,7 +96,7 @@ public class EnchereManager {
 		}
 		return false;
 	}
-	
+
 	private Boolean compareDate2(String date) throws BusinessException {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd,HH:mm:ss");
 		Date dateActuelle = new Date(System.currentTimeMillis());
@@ -122,21 +121,23 @@ public class EnchereManager {
 		}
 		return newList;
 	}
-	
+
 	public List<Enchere> mesEncheresEnCours(List<Enchere> listeEnchere, Integer idUser) throws BusinessException {
 		List<Enchere> newList = new ArrayList<Enchere>();
 		for (Enchere enchere : listeEnchere) {
-			if (enchere.getUtilisateur().getId().equals(idUser) && compareDate(enchere.getArticle().getDate_fin_encheres().toString())) {
+			if (enchere.getUtilisateur().getId().equals(idUser)
+					&& compareDate(enchere.getArticle().getDate_fin_encheres().toString())) {
 				newList.add(enchere);
 			}
 		}
 		return newList;
 	}
-	
+
 	public List<Enchere> mesEncheresNonDebutees(List<Enchere> listeEnchere, Integer idUser) throws BusinessException {
 		List<Enchere> newList = new ArrayList<Enchere>();
 		for (Enchere enchere : listeEnchere) {
-			if (enchere.getUtilisateur().getId().equals(idUser) && compareDate2(enchere.getArticle().getDate_fin_encheres().toString())) {
+			if (enchere.getUtilisateur().getId().equals(idUser)
+					&& compareDate2(enchere.getArticle().getDate_fin_encheres().toString())) {
 				newList.add(enchere);
 			}
 		}

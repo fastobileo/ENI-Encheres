@@ -30,13 +30,20 @@ public class DetailsVenteServlet extends HttpServlet {
 
 		try {
 			id_enchere = Integer.parseInt(request.getParameter("id_enchere"));
-			if (id_enchere < 0) {
-				throw new Exception();
+			System.out.println(request.getParameter("error"));
+			if (id_enchere <= 0 || id_enchere == null) {
+				if (request.getParameter("error") != null) {
+					throw new BusinessException(request.getParameter("error"));
+				} else {
+					throw new BusinessException("Enchere non disponible");
+				}
+
 			}
 			enchere = enchereManager.getEnchereInnerJoin(id_enchere);
 
-		} catch (Exception e) {
-			request.setAttribute("errorMessage", "Enchere non disponible");
+		} catch (BusinessException e) {
+			System.out.println("test");
+			request.setAttribute("errorMessage", e.getMessage());
 		}
 		request.setAttribute("enchere", enchere);
 
@@ -48,17 +55,20 @@ public class DetailsVenteServlet extends HttpServlet {
 		String id = request.getParameter("id_enchere");
 		String enchere = request.getParameter("enchere");
 		String idUser = request.getParameter("idUser");
-
+		String error = "";
 		try {
 			enchereManager.encherir(id, enchere, idUser);
 		} catch (BusinessException e) {
 			request.setAttribute("errorMessageEnchere", e.getMessage());
+			error = "&error=" + e.getMessage();
+			System.out.println(error);
 		}
 		// request.setAttribute("idEnchere", id);
-		request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp?id_enchere=" + id).forward(request, response);
+		// request.getRequestDispatcher(request.getContextPath() +
+		// "/detailsVente?id_enchere=" + id).forward(request,
+		// response);
 
-		// response.sendRedirect(request.getContextPath() + "/detailsVente?id_enchere="
-		// + id);
+		response.sendRedirect(request.getContextPath() + "/detailsVente?id_enchere=" + id + error);
 
 	}
 
