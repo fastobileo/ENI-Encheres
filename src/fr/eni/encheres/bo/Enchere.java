@@ -10,6 +10,7 @@ public class Enchere {
 	private Article article;
 	private Utilisateur utilisateur;
 	private Retrait retrait;
+	private Utilisateur dernierEncherisseur;
 
 	public Enchere(int no_enchere, Date date_enchere, int montant_enchere, Article article, Utilisateur utilisateur) {
 		super();
@@ -29,7 +30,7 @@ public class Enchere {
 		this.article = article;
 		this.utilisateur = utilisateur;
 	}
-	
+
 	public int getNo_enchere() {
 		return no_enchere;
 	}
@@ -78,13 +79,19 @@ public class Enchere {
 		this.retrait = retrait;
 	}
 
+	public Utilisateur getDernierEncherisseur() {
+		return dernierEncherisseur;
+	}
+
+	public void setDernierEncherisseur(Utilisateur dernierEncherisseur) {
+		this.dernierEncherisseur = dernierEncherisseur;
+	}
+
 	@Override
 	public String toString() {
 		return "Enchere [no_enchere=" + no_enchere + ", date_enchere=" + date_enchere + ", montant_enchere="
 				+ montant_enchere + ", article=" + article + ", utilisateur=" + utilisateur + ", retrait=" + retrait
-				+ "]";
+				+ ", dernierEncherisseur=" + dernierEncherisseur + "]";
 	}
-	
-	
 
 }

@@ -32,14 +32,10 @@ public class EnchereDAOImpl implements EnchereDAO {
 
 	private final String UPDATE = "UPDATE ENCHERES set date_enchere = ?, montant_enchere = ?, no_article = ?, no_utilisateur = ? WHERE no_enchere = ?";
 
-	private final String ENCHERIR = "UPDATE ENCHERES set montant_enchere = ? WHERE no_enchere = ?";
+	private final String ENCHERIR = "UPDATE ENCHERES set montant_enchere = ?, derniereEnchere =? WHERE no_enchere = ?";
+	private final String CREDITER = "UPDATE UTILISATEURS set credit = credit + ? WHERE no_utilisateur = ?";
+	private final String DEBITER = "UPDATE UTILISATEURS set credit = credit - ? WHERE no_utilisateur = ?";
 
-	private final String INNER_JOIN = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, c.no_categorie, libelle, no_enchere, date_enchere,\n"
-			+ "montant_enchere, r.no_retrait, r.rue as retraitRue, r.code_postal as retraitCP, r.ville as retraitVille, u.no_utilisateur, pseudo, prenom, nom, email, telephone, u.rue, u.code_postal, u.ville, credit\n"
-			+ "FROM ARTICLES_VENDUS a INNER JOIN ENCHERES e ON a.no_article = e.no_article\n"
-			+ "INNER JOIN RETRAITS r ON r.no_retrait = a.no_retrait\n"
-			+ "INNER JOIN CATEGORIES c ON c.no_categorie = a.no_categorie\n"
-			+ "INNER JOIN UTILISATEURS u ON u.no_utilisateur = e.no_utilisateur where no_enchere=?";
 	
 	private final String FIND_ALL_ACHATS = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, c.no_categorie, libelle, no_enchere, date_enchere,\n"
 			+ "montant_enchere, r.no_retrait, r.rue as retraitRue, r.code_postal as retraitCP, r.ville as retraitVille, u.no_utilisateur, pseudo, prenom, nom, email, telephone, u.rue, u.code_postal, u.ville, credit\n"
@@ -54,6 +50,13 @@ public class EnchereDAOImpl implements EnchereDAO {
 			+ "INNER JOIN RETRAITS r ON r.no_retrait = a.no_retrait\n"
 			+ "INNER JOIN CATEGORIES c ON c.no_categorie = a.no_categorie\n"
 			+ "INNER JOIN UTILISATEURS u ON u.no_utilisateur = e.no_utilisateur";
+
+	private final String INNER_JOIN = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, c.no_categorie, libelle, no_enchere, date_enchere,montant_enchere, r.no_retrait, r.rue as retraitRue, r.code_postal as retraitCP, r.ville as retraitVille, u.no_utilisateur, u.pseudo,u.prenom, u.nom, u.email, u.telephone, u.rue, u.code_postal, u.ville, u.credit,u2.no_utilisateur as no_utilisateurEN, u2.pseudo as pseudoEN,u2.prenom as prenomEN, u2.nom as nomEN, u2.email as emailEN, u2.telephone as telephoneEN, u2.rue as rueEN, u2.code_postal as code_postalEN, u2.ville as villeEN, u2.credit as creditEN\n"
+			+ "FROM ARTICLES_VENDUS a \n" + "INNER JOIN ENCHERES e ON a.no_article = e.no_article \n"
+			+ "INNER JOIN RETRAITS r ON r.no_retrait = a.no_retrait \n"
+			+ "INNER JOIN CATEGORIES c ON c.no_categorie = a.no_categorie \n"
+			+ "INNER JOIN UTILISATEURS u ON u.no_utilisateur = e.no_utilisateur \n"
+			+ "LEFT JOIN UTILISATEURS u2 ON u2.no_utilisateur = e.derniereEnchere where no_enchere=?";
 
 	@Override
 	public void add(Enchere enchere) throws DALException {
@@ -319,6 +322,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 		Article article = new Article();
 		Retrait retrait = new Retrait();
 		Utilisateur utilisateur = new Utilisateur();
+		Utilisateur encherisseur = new Utilisateur();
 
 		try (Connection connection = ConnectionProvider.getConnection()) {
 
@@ -353,14 +357,23 @@ public class EnchereDAOImpl implements EnchereDAO {
 				utilisateur.setCode_postal(rs.getString("code_postal"));
 				utilisateur.setVille(rs.getString("ville"));
 
+				encherisseur.setId(rs.getInt("no_utilisateurEN"));
+				encherisseur.setPseudo(rs.getString("pseudoEN"));
+				encherisseur.setPrenom(rs.getString("prenomEN"));
+				encherisseur.setEmail(rs.getString("emailEN"));
+				encherisseur.setTelephone(rs.getString("telephoneEN"));
+				encherisseur.setNom(rs.getString("nomEN"));
+				encherisseur.setRue(rs.getString("rueEN"));
+				encherisseur.setCode_postal(rs.getString("code_postalEN"));
+				encherisseur.setVille(rs.getString("villeEN"));
+
 				enchere.setNo_enchere(rs.getInt("no_enchere"));
 				enchere.setDate_enchere(rs.getDate("date_enchere"));
 				enchere.setMontant_enchere(rs.getInt("montant_enchere"));
 				enchere.setArticle(article);
 				enchere.setUtilisateur(utilisateur);
+				enchere.setDernierEncherisseur(encherisseur);
 				enchere.setRetrait(retrait);
-
-				// System.out.println(enchere.toString());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -370,14 +383,15 @@ public class EnchereDAOImpl implements EnchereDAO {
 		return enchere;
 	}
 
-	public void encherir(Integer idEnchere, Integer prix) throws DALException {
+	public void encherir(Integer idEnchere, Integer prix, Integer last) throws DALException {
 
 		try (Connection connection = ConnectionProvider.getConnection()) {
 
 			PreparedStatement ps = connection.prepareStatement(ENCHERIR);
 
 			ps.setInt(1, prix);
-			ps.setInt(2, idEnchere);
+			ps.setInt(2, last);
+			ps.setInt(3, idEnchere);
 			ps.executeUpdate();
 			ps.close();
 
@@ -385,6 +399,38 @@ public class EnchereDAOImpl implements EnchereDAO {
 			e.printStackTrace();
 			throw new DALException(e);
 		}
+	}
+
+	public void debiter(Integer idUser, Integer credit) throws DALException {
+		try (Connection connection = ConnectionProvider.getConnection()) {
+
+			PreparedStatement ps = connection.prepareStatement(DEBITER);
+
+			ps.setInt(1, credit);
+			ps.setInt(2, idUser);
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException(e);
+		}
+	}
+
+	public void crediter(Integer idUser, Integer credit) throws DALException {
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement ps = connection.prepareStatement(CREDITER);
+
+			ps.setInt(1, credit);
+			ps.setInt(2, idUser);
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException(e);
+		}
+
 	}
 
 }

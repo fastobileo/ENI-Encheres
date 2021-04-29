@@ -41,6 +41,10 @@
 									<td>${enchere.getMontant_enchere()}</td>
 								</tr>
 								<tr>
+									<th scope="row">Dernier Encherisseur</th>
+									<td>${enchere.getDernierEncherisseur().getPseudo()}</td>
+								</tr>
+								<tr>
 									<th scope="row">Mise à prix</th>
 									<td>${enchere.getArticle().getPrix_initial()}</td>
 								</tr>
@@ -87,6 +91,7 @@
 									</div>
 								</div>
 								<input hidden name="idEnchere" value="${enchere.getNo_enchere()}"/>
+								<input hidden name="idUser" value="${sessionScope.idUser}"/>
 							</form>
 						</c:if>
 					</div>

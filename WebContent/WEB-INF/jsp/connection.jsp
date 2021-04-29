@@ -19,7 +19,7 @@
 		<form action="${pageContext.servletContext.contextPath}/connection"
 			method="post">
 			<div class="form-outline mb-4">
-				<input required type="text" name="id" id="id" class="form-control" /> <label
+				<input required type="text" name="id" id="id" class="form-control" value="${ id }" /> <label
 					class="form-label" for="form1Example1">Identifiant</label>
 			</div>
 			<div class="form-outline mb-4">
@@ -30,8 +30,8 @@
 			<div class="row mb-4">
 				<div class="col d-flex justify-content-center">
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value=""
-							id="form1Example3" checked /> <label class="form-check-label"
+						<input class="form-check-input" type="checkbox" name="seSouvenirDeMoi"
+							id="form1Example3"/> <label class="form-check-label"
 							for="form1Example3"> Se souvenir de moi </label>
 					</div>
 				</div>
