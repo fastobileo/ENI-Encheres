@@ -19,4 +19,8 @@ public interface EnchereDAO {
 	Enchere getEnchereInnerJoin(Integer id_enchere) throws DALException;
 
 	void encherir(Integer idEnchere, Integer prix) throws DALException;
+	
+	List<Enchere> findAllAchats() throws DALException;
+	
+	List<Enchere> findAllVentes() throws DALException;
 }

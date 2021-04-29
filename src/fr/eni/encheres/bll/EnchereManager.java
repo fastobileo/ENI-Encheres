@@ -130,49 +130,40 @@ public class EnchereManager {
 		}
 		return false;
 	}
-	
-	private Boolean compareDate2(String date) throws BusinessException {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd,HH:mm:ss");
-		Date dateActuelle = new Date(System.currentTimeMillis());
-		Date dateChoisie = null;
-		try {
-			dateChoisie = formatter.parse(date + ",23:59:59");
-		} catch (ParseException e) {
-			throw new BusinessException();
-		}
-		if (dateChoisie.compareTo(dateActuelle) < 0) {
-			return true;
-		}
-		return false;
-	}
 
 	public List<Enchere> getOpen(List<Enchere> listeEnchere) throws BusinessException {
 		List<Enchere> newList = new ArrayList<Enchere>();
 		for (Enchere enchere : listeEnchere) {
-			if (compareDate(enchere.getArticle().getDate_fin_encheres().toString())) {
+			if (compareDate(enchere.getArticle().getDate_fin_encheres().toString())) 
+			{
 				newList.add(enchere);
 			}
 		}
 		return newList;
 	}
 	
-	public List<Enchere> mesEncheresEnCours(List<Enchere> listeEnchere, Integer idUser) throws BusinessException {
-		List<Enchere> newList = new ArrayList<Enchere>();
-		for (Enchere enchere : listeEnchere) {
-			if (enchere.getUtilisateur().getId().equals(idUser) && compareDate(enchere.getArticle().getDate_fin_encheres().toString())) {
-				newList.add(enchere);
-			}
+	public List<Enchere> getAchats() throws BusinessException {
+
+		List<Enchere> listeEnchere = new ArrayList<Enchere>();
+		try {
+
+			listeEnchere = enchereDAO.findAllAchats();
+		} catch (DALException e) {
+			e.printStackTrace();
 		}
-		return newList;
+		return listeEnchere;
 	}
 	
-	public List<Enchere> mesEncheresNonDebutees(List<Enchere> listeEnchere, Integer idUser) throws BusinessException {
-		List<Enchere> newList = new ArrayList<Enchere>();
-		for (Enchere enchere : listeEnchere) {
-			if (enchere.getUtilisateur().getId().equals(idUser) && compareDate2(enchere.getArticle().getDate_fin_encheres().toString())) {
-				newList.add(enchere);
-			}
+	public List<Enchere> getVentes() throws BusinessException {
+
+		List<Enchere> listeEnchere = new ArrayList<Enchere>();
+		try {
+
+			listeEnchere = enchereDAO.findAllVentes();
+		} catch (DALException e) {
+			e.printStackTrace();
 		}
-		return newList;
+		return listeEnchere;
 	}
+
 }
