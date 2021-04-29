@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.encheres.bll.CategorieManager;
 import fr.eni.encheres.bll.EnchereManager;
-import fr.eni.encheres.bo.BusinessException;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Enchere;
 
@@ -22,41 +21,41 @@ public class HomePageServlet extends HttpServlet {
 
 	private CategorieManager categorieManager = new CategorieManager();
 	private EnchereManager enchereManager = new EnchereManager();
-	
+
 	public HomePageServlet() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		List<Categorie> listeCategorie = new ArrayList<Categorie>();
-		List<Enchere> listeVentes = new ArrayList<Enchere>();
-		List<Enchere> listeAchats = new ArrayList<Enchere>();
-		
-		// Affichage des ventes de l'utilisateur en cours 
+		List<Enchere> listeEncheres = new ArrayList<Enchere>();
+
+		// Affichage des ventes de l'utilisateur en cours
 		try {
+			String id = (String) request.getSession().getAttribute("idUser").toString();
+			System.out.println(id);
+			if (request.getParameter("filtre1") != null) {
+				System.out.println("open : " + request.getParameter("open"));
+				System.out.println("mine : " + request.getParameter("mine"));
+				System.out.println("win : " + request.getParameter("win"));
+				listeEncheres = enchereManager.getAchats(request.getParameter("open"), request.getParameter("mine"),
+						request.getParameter("win"), id);
+			} else if (request.getParameter("filtre2") != null) {
+				listeEncheres = enchereManager.getVentes(request.getParameter("VenteEnCours"),
+						request.getParameter("VenteNonDebutees"), request.getParameter("VentesTerminees"), id);
+			} else {
+				listeEncheres = enchereManager.afficherToutesLesEncheres();
+			}
 			listeCategorie = categorieManager.afficherToutesLesCategories();
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "La liste des enchères n'est pas disponible");
 		}
-		
-		try {
-			listeVentes = enchereManager.getVentes();
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			listeAchats = enchereManager.getAchats();
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
+		request.setAttribute("listeEnchere", listeEncheres);
 		request.setAttribute("listeCategorie", listeCategorie);
 		request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
 	}

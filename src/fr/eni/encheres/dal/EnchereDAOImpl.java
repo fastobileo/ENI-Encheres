@@ -36,14 +36,13 @@ public class EnchereDAOImpl implements EnchereDAO {
 	private final String CREDITER = "UPDATE UTILISATEURS set credit = credit + ? WHERE no_utilisateur = ?";
 	private final String DEBITER = "UPDATE UTILISATEURS set credit = credit - ? WHERE no_utilisateur = ?";
 
-	
-	private final String FIND_ALL_ACHATS = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, c.no_categorie, libelle, no_enchere, date_enchere,\n"
+	private String FIND_ALL_ACHATS = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, c.no_categorie, libelle, no_enchere, date_enchere,\n"
 			+ "montant_enchere, r.no_retrait, r.rue as retraitRue, r.code_postal as retraitCP, r.ville as retraitVille, u.no_utilisateur, pseudo, prenom, nom, email, telephone, u.rue, u.code_postal, u.ville, credit\n"
 			+ "FROM ARTICLES_VENDUS a INNER JOIN ENCHERES e ON a.no_article = e.no_article\n"
 			+ "INNER JOIN RETRAITS r ON r.no_retrait = a.no_retrait\n"
 			+ "INNER JOIN CATEGORIES c ON c.no_categorie = a.no_categorie\n"
-			+ "INNER JOIN UTILISATEURS u ON u.no_utilisateur = e.no_utilisateur";
-	
+			+ "INNER JOIN UTILISATEURS u ON u.no_utilisateur = e.no_utilisateur WHERE 1=1 ";
+
 	private final String FIND_ALL_VENTES = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, c.no_categorie, libelle, no_enchere, date_enchere,\n"
 			+ "montant_enchere, r.no_retrait, r.rue as retraitRue, r.code_postal as retraitCP, r.ville as retraitVille, u.no_utilisateur, pseudo, prenom, nom, email, telephone, u.rue, u.code_postal, u.ville, credit\n"
 			+ "FROM ARTICLES_VENDUS a INNER JOIN ENCHERES e ON a.no_article = e.no_article\n"
@@ -165,7 +164,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 		}
 		return listeEnchere;
 	}
-	
+
 	public List<Enchere> findAllAchats() throws DALException {
 
 		List<Enchere> listeEnchere = new ArrayList<Enchere>();
@@ -221,7 +220,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 		}
 		return listeEnchere;
 	}
-	
+
 	public List<Enchere> findAllVentes() throws DALException {
 
 		List<Enchere> listeEnchere = new ArrayList<Enchere>();
@@ -431,6 +430,61 @@ public class EnchereDAOImpl implements EnchereDAO {
 			throw new DALException(e);
 		}
 
+	}
+
+	@Override
+	public List<Enchere> findAllAchats(String mine, String mineOpen, String myWin) throws DALException {
+		List<Enchere> listeEnchere = new ArrayList<Enchere>();
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			String NewFIND_ALL_ACHATS = FIND_ALL_ACHATS + mine + mineOpen + myWin;
+			System.out.println(NewFIND_ALL_ACHATS);
+			PreparedStatement ps = connection.prepareStatement(NewFIND_ALL_ACHATS);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				System.out.println(rs.getInt("no_enchere"));
+				Article article = new Article();
+				Utilisateur utilisateur = new Utilisateur();
+				Retrait retrait = new Retrait();
+				Enchere enchere = new Enchere(article, utilisateur);
+				enchere.setNo_enchere(rs.getInt("no_enchere"));
+				article.setNo_article(rs.getInt("no_article"));
+				article.setNom_article(rs.getString("nom_article"));
+				article.setDescription(rs.getString("description"));
+				article.setPrix_initial(rs.getInt("prix_initial"));
+				article.setPrix_vente(rs.getInt("prix_vente"));
+				article.setCategorie(
+						new Categorie(Integer.parseInt(rs.getString("no_categorie")), rs.getString("libelle")));
+				article.setDate_debut_encheres(rs.getDate("date_debut_encheres"));
+				article.setDate_fin_encheres(rs.getDate("date_fin_encheres"));
+
+				retrait.setId(rs.getInt("no_retrait"));
+				retrait.setRue(rs.getString("retraitRue"));
+				retrait.setCode_postal(rs.getString("retraitCP"));
+				retrait.setVille(rs.getString("retraitVille"));
+
+				utilisateur.setId(rs.getInt("no_utilisateur"));
+				utilisateur.setPseudo(rs.getString("pseudo"));
+				utilisateur.setPrenom(rs.getString("prenom"));
+				utilisateur.setEmail(rs.getString("email"));
+				utilisateur.setTelephone(rs.getString("telephone"));
+				utilisateur.setNom(rs.getString("nom"));
+				utilisateur.setRue(rs.getString("rue"));
+				utilisateur.setCode_postal(rs.getString("code_postal"));
+				utilisateur.setVille(rs.getString("ville"));
+
+				enchere.setNo_enchere(rs.getInt("no_enchere"));
+				enchere.setDate_enchere(rs.getDate("date_enchere"));
+				enchere.setMontant_enchere(rs.getInt("montant_enchere"));
+				enchere.setArticle(article);
+				enchere.setUtilisateur(utilisateur);
+				enchere.setRetrait(retrait);
+				listeEnchere.add(enchere);
+			}
+
+		} catch (SQLException e) {
+			throw new DALException(e);
+		}
+		return listeEnchere;
 	}
 
 }

@@ -43,12 +43,12 @@
 						</div>
 						<div>
 							<input type="checkbox" id="enchere2" name="mine"
-								value="${sessionScope.idUser }"> <label
+								value="oui"> <label
 								for="mes_encheres">mes enchères</label>
 						</div>
 						<div>
 							<input type="checkbox" id="enchere3" name="win"
-								value="${sessionScope.idUser }"> <label
+								value="oui"> <label
 								for="enchere_remportee">mes enchères remportées</label>
 						</div>
 					</div>
@@ -94,6 +94,7 @@
 		<h1 class="">Annonces : </h1>
 		<br>
 		<div class="row">
+		<c:if test="${listeEnchere.size()==0}">RIEN</c:if>
 			<c:forEach var="enchere" items="${listeEnchere}">
 				<div class="col-md-4 col-sm-12">
 					<div class="card mb-3" style="max-width: 540px">

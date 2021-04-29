@@ -122,46 +122,55 @@ public class EnchereManager {
 		return newList;
 	}
 
-	public List<Enchere> mesEncheresEnCours(List<Enchere> listeEnchere, Integer idUser) throws BusinessException {
-		List<Enchere> newList = new ArrayList<Enchere>();
-		for (Enchere enchere : listeEnchere) {
-			if (enchere.getUtilisateur().getId().equals(idUser)
-					&& compareDate(enchere.getArticle().getDate_fin_encheres().toString())) {
-				newList.add(enchere);
-			}
-		}
-		return newList;
-	}
+	public List<Enchere> getAchats(String mineOpenCheck, String mineCheck, String myWinCheck, String no_utilisateur)
+			throws BusinessException {
 
-	public List<Enchere> getAchats() throws BusinessException {
+		String mineOpen = "";
+		String mine = "";
+		String myWin = "";
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date now = new Date();
+		String dateNow = formatter.format(now);
 
 		List<Enchere> listeEnchere = new ArrayList<Enchere>();
 		try {
-
-			listeEnchere = enchereDAO.findAllAchats();
+			if (mineOpenCheck != null) {
+				mineOpen = "AND u.no_utilisateur = " + no_utilisateur + " AND date_debut_encheres < '" + dateNow
+						+ "' AND date_fin_encheres >= '" + dateNow + "' ";
+			} else if (mineCheck != null) {
+				mine = "AND u.no_utilisateur = " + no_utilisateur + " ";
+			} else if (myWinCheck != null) {
+				myWin = "";
+			}
+			listeEnchere = enchereDAO.findAllAchats(mine, mineOpen, myWin);
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
 		return listeEnchere;
 	}
 
-	public List<Enchere> mesEncheresNonDebutees(List<Enchere> listeEnchere, Integer idUser) throws BusinessException {
-		List<Enchere> newList = new ArrayList<Enchere>();
-		for (Enchere enchere : listeEnchere) {
-			if (enchere.getUtilisateur().getId().equals(idUser)
-					&& compareDate2(enchere.getArticle().getDate_fin_encheres().toString())) {
-				newList.add(enchere);
-			}
-		}
-		return newList;
-	}
+	public List<Enchere> getVentes(String VenteEnCourCheck, String VenteNonDebuteesCheck, String VentesTermineesCheck,
+			String no_utilisateur) throws BusinessException {
+		String VenteEnCour = "";
+		String VenteNonDebutees = "";
+		String VentesTerminees = "";
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-	public List<Enchere> getVentes() throws BusinessException {
+		Date now = new Date();
+		String dateNow = formatter.format(now);
 
 		List<Enchere> listeEnchere = new ArrayList<Enchere>();
 		try {
-
-			listeEnchere = enchereDAO.findAllVentes();
+			if (VenteEnCourCheck != null) {
+				VenteEnCour = "AND u.no_utilisateur = " + no_utilisateur + " AND date_debut_encheres < '" + dateNow
+						+ "' AND date_fin_encheres >= '" + dateNow + "' ";
+			} else if (VenteNonDebuteesCheck != null) {
+				VenteNonDebutees = "AND u.no_utilisateur = " + no_utilisateur + " ";
+			} else if (VentesTermineesCheck != null) {
+				VentesTerminees = "";
+			}
+			listeEnchere = enchereDAO.findAllAchats(VenteEnCour, VenteNonDebutees, VentesTerminees);
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
