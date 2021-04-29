@@ -133,6 +133,18 @@ public class EnchereManager {
 		return newList;
 	}
 
+	public List<Enchere> getAchats() throws BusinessException {
+
+		List<Enchere> listeEnchere = new ArrayList<Enchere>();
+		try {
+
+			listeEnchere = enchereDAO.findAllAchats();
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		return listeEnchere;
+	}
+
 	public List<Enchere> mesEncheresNonDebutees(List<Enchere> listeEnchere, Integer idUser) throws BusinessException {
 		List<Enchere> newList = new ArrayList<Enchere>();
 		for (Enchere enchere : listeEnchere) {
@@ -143,4 +155,17 @@ public class EnchereManager {
 		}
 		return newList;
 	}
+
+	public List<Enchere> getVentes() throws BusinessException {
+
+		List<Enchere> listeEnchere = new ArrayList<Enchere>();
+		try {
+
+			listeEnchere = enchereDAO.findAllVentes();
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		return listeEnchere;
+	}
+
 }
