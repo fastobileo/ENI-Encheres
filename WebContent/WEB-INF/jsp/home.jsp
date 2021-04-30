@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,6 +96,9 @@
 		<br>
 		<div class="row">
 		<c:if test="${listeEnchere.size()==0}">RIEN</c:if>
+		<!-- Création d'une variable à la date du jour -->
+		<c:set var = "now" value = "<%= new java.util.Date()%>"/>
+		<fmt:formatDate pattern="yyyy-MM-dd" value="${now}" var="parsedDate" />
 			<c:forEach var="enchere" items="${listeEnchere}">
 				<div class="col-md-4 col-sm-12">
 					<div class="card mb-3" style="max-width: 540px">
@@ -112,11 +116,19 @@
 										${enchere.getArticle().getDate_fin_encheres()}</p>
 									<p class="card-text">Vendeur :
 										${enchere.getUtilisateur().getPseudo()}</p>
-									<div class="text-center">
-										<a
-											href="${pageContext.servletContext.contextPath}/detailsVente?id_enchere=${enchere.getNo_enchere()}"
-											class="btn btn-primary">En savoir plus</a>
-									</div>
+									<c:choose>
+    									<c:when test="${ enchere.getArticle().getDate_fin_encheres() < parsedDate}">
+											<div class="text-center">
+												<button type="button" class="btn btn-dark">Enchère Terminée</button>
+											</div>
+   										 </c:when>    
+    									<c:otherwise>
+											<div class="text-center">
+												<a href="${pageContext.servletContext.contextPath}/detailsVente?id_enchere=${enchere.getNo_enchere()}"
+												class="btn btn-primary">En savoir plus</a>
+											</div>
+    									</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</div>

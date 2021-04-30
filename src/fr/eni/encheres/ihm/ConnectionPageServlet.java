@@ -36,7 +36,6 @@ public class ConnectionPageServlet extends HttpServlet {
 	                if (cookie.getName().equals("id")) {
 	                	
 	                    request.setAttribute("id", cookie.getValue());
-	                    System.out.println("il a set le cookies dans la jsp");
 	                }
 	            }
 	        }
@@ -48,13 +47,11 @@ public class ConnectionPageServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		
-		System.out.println(request.getParameter("seSouvenirDeMoi"));
 		if (null != request.getParameter("seSouvenirDeMoi")) {
 			
 	        Cookie cookie = new Cookie("id", id);
 	        cookie.setMaxAge(60 * 60 * 24 * 30);
 	        response.addCookie(cookie);
-	        System.out.println("c Good");
 		}
 		
 		try {
