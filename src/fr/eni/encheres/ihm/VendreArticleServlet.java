@@ -82,8 +82,6 @@ public class VendreArticleServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		
-		System.out.println("boum !");
-		
 		ArticleManager articleManager = new ArticleManager();
 		RetraitManager retraitManager = new RetraitManager();
 		CategorieManager categorieManager = new CategorieManager();

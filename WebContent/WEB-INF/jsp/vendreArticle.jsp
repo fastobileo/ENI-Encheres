@@ -40,14 +40,14 @@
 						</select>
 					</div>
 					<br>
-					<div class="form-outline mb-4">
+					<!-- <div class="form-outline mb-4">
 						<h6>Ajouter une image :</h6>
 						<input type="file" id="file" accept="image/png, image/jpeg">
 					</div>
 					<div class="float-right" style="max-width: 100px;">
 						<img src="https://mdbootstrap.com/img/new/standard/city/043.jpg"
 							class="img-fluid hover-shadow" alt="" />
-					</div>
+					</div> -->
 					<h6>Mise à prix :</h6>
 					<div class="form-outline mb-4">
 						<input type="number" min="0" id="form7Example1"
@@ -72,7 +72,7 @@
 						</div>
 						<br>
 						<div class="form-outline">
-							<input type="number" id="formControlDefault" class="form-control"
+							<input type="text" id="formControlDefault" class="form-control"
 								value="${user.getCode_postal()}" /> <label class="form-label"
 								for="formControlDefault">Code postal :</label>
 						</div>
