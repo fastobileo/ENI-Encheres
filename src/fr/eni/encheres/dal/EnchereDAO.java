@@ -20,7 +20,8 @@ public interface EnchereDAO {
 
 	List<Enchere> findAllAchats(String mine, String mineOpen, String myWin) throws DALException;
 
-	List<Enchere> findAllVentes() throws DALException;
+	List<Enchere> findAllVentes(String VenteEnCour, String VenteNonDebutees, String VentesTerminees)
+			throws DALException;
 
 	void encherir(Integer idEnchere, Integer prix, Integer last) throws DALException;
 

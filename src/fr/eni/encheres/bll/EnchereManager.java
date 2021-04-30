@@ -136,12 +136,11 @@ public class EnchereManager {
 		List<Enchere> listeEnchere = new ArrayList<Enchere>();
 		try {
 			if (mineOpenCheck != null) {
-				mineOpen = "AND u.no_utilisateur = " + no_utilisateur + " AND date_debut_encheres < '" + dateNow
-						+ "' AND date_fin_encheres >= '" + dateNow + "' ";
+				mineOpen = "";
 			} else if (mineCheck != null) {
-				mine = "AND u.no_utilisateur = " + no_utilisateur + " ";
+				mine = "";
 			} else if (myWinCheck != null) {
-				myWin = "";
+				myWin = "AND date_fin_encheres<'" + dateNow + "' AND u2.no_utilisateur = " + no_utilisateur;
 			}
 			listeEnchere = enchereDAO.findAllAchats(mine, mineOpen, myWin);
 		} catch (DALException e) {
@@ -166,11 +165,12 @@ public class EnchereManager {
 				VenteEnCour = "AND u.no_utilisateur = " + no_utilisateur + " AND date_debut_encheres < '" + dateNow
 						+ "' AND date_fin_encheres >= '" + dateNow + "' ";
 			} else if (VenteNonDebuteesCheck != null) {
-				VenteNonDebutees = "AND u.no_utilisateur = " + no_utilisateur + " ";
+				VenteNonDebutees = "AND u.no_utilisateur = " + no_utilisateur + " AND date_debut_encheres > '" + dateNow
+						+ "' ";
 			} else if (VentesTermineesCheck != null) {
-				VentesTerminees = "";
+				VentesTerminees = "AND date_fin_encheres<'" + dateNow + "' AND u.no_utilisateur = " + no_utilisateur;
 			}
-			listeEnchere = enchereDAO.findAllAchats(VenteEnCour, VenteNonDebutees, VentesTerminees);
+			listeEnchere = enchereDAO.findAllVentes(VenteEnCour, VenteNonDebutees, VentesTerminees);
 		} catch (DALException e) {
 			e.printStackTrace();
 		}

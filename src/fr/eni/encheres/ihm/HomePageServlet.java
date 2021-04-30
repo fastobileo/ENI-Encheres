@@ -34,24 +34,26 @@ public class HomePageServlet extends HttpServlet {
 
 		// Affichage des ventes de l'utilisateur en cours
 		try {
-			String id = (String) request.getSession().getAttribute("idUser").toString();
-			System.out.println(id);
-			if (request.getParameter("filtre1") != null) {
-				System.out.println("open : " + request.getParameter("open"));
-				System.out.println("mine : " + request.getParameter("mine"));
-				System.out.println("win : " + request.getParameter("win"));
-				listeEncheres = enchereManager.getAchats(request.getParameter("open"), request.getParameter("mine"),
-						request.getParameter("win"), id);
-			} else if (request.getParameter("filtre2") != null) {
-				listeEncheres = enchereManager.getVentes(request.getParameter("VenteEnCours"),
-						request.getParameter("VenteNonDebutees"), request.getParameter("VentesTerminees"), id);
+			String id;
+			String filtre;
+			if (request.getSession().getAttribute("idUser") != null && request.getParameter("filtre1") != null) {
+				id = (String) request.getSession().getAttribute("idUser").toString();
+				filtre = request.getParameter("filtre1");
+				if (filtre.equals("achat")) {
+					listeEncheres = enchereManager.getAchats(request.getParameter("open"), request.getParameter("mine"),
+							request.getParameter("win"), id);
+				} else if (filtre.equals("vente")) {
+					listeEncheres = enchereManager.getVentes(request.getParameter("VenteEnCours"),
+							request.getParameter("VenteNonDebutees"), request.getParameter("VentesTerminees"), id);
+				} else {
+					listeEncheres = enchereManager.afficherToutesLesEncheres();
+				}
+				listeCategorie = categorieManager.afficherToutesLesCategories();
 			} else {
 				listeEncheres = enchereManager.afficherToutesLesEncheres();
+				listeCategorie = categorieManager.afficherToutesLesCategories();
 			}
-			listeCategorie = categorieManager.afficherToutesLesCategories();
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "La liste des enchères n'est pas disponible");
 		}
