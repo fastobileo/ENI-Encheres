@@ -36,10 +36,9 @@
 					</div>
 				</div>
 
-				<div class="col">
-					<!-- Simple link -->
+				<!-- <div class="col">
 					<a href="#!">Mot de passe oublié</a>
-				</div>
+				</div>-->
 			</div>
 			<button type="submit" class="btn btn-primary btn-block">Se
 				connecter</button>
